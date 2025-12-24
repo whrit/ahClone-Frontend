@@ -1,19 +1,19 @@
+import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import { OpenAPI } from "@/client/core/OpenAPI"
 import { request as __request } from "@/client/core/request"
-import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import type {
-  GSCPropertyPublic,
-  GSCPropertyListResponse,
-  GSCQueriesResponse,
-  GSCPagesResponse,
-  OpportunitiesResponse,
-  ClustersResponse,
   ClusterDetailResponse,
+  ClustersResponse,
   GoogleIntegrationStatus,
+  GSCPagesResponse,
+  GSCPropertyListResponse,
+  GSCPropertyPublic,
+  GSCQueriesResponse,
   LinkPropertyRequest,
-  TriggerBackfillRequest,
-  QueryParams,
+  OpportunitiesResponse,
   OpportunityParams,
+  QueryParams,
+  TriggerBackfillRequest,
 } from "@/types/gsc"
 
 export interface GSCListPropertiesData {
@@ -74,7 +74,7 @@ export class GSCService {
    * Get all GSC properties for a project.
    */
   public static listProperties(
-    data: GSCListPropertiesData
+    data: GSCListPropertiesData,
   ): CancelablePromise<GSCPropertyListResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -93,7 +93,7 @@ export class GSCService {
    * Link a GSC property to the project.
    */
   public static linkProperty(
-    data: GSCLinkPropertyData
+    data: GSCLinkPropertyData,
   ): CancelablePromise<GSCPropertyPublic> {
     return __request(OpenAPI, {
       method: "POST",
@@ -114,7 +114,7 @@ export class GSCService {
    * Unlink the GSC property from the project.
    */
   public static unlinkProperty(
-    data: GSCUnlinkPropertyData
+    data: GSCUnlinkPropertyData,
   ): CancelablePromise<{ message: string }> {
     return __request(OpenAPI, {
       method: "DELETE",
@@ -133,7 +133,7 @@ export class GSCService {
    * Trigger a GSC data sync for the project.
    */
   public static triggerSync(
-    data: GSCTriggerSyncData
+    data: GSCTriggerSyncData,
   ): CancelablePromise<{ message: string; task_id: string }> {
     return __request(OpenAPI, {
       method: "POST",
@@ -152,7 +152,7 @@ export class GSCService {
    * Trigger a GSC data backfill for the project.
    */
   public static triggerBackfill(
-    data: GSCTriggerBackfillData
+    data: GSCTriggerBackfillData,
   ): CancelablePromise<{ message: string; task_id: string }> {
     return __request(OpenAPI, {
       method: "POST",
@@ -173,7 +173,7 @@ export class GSCService {
    * Get GSC query performance data.
    */
   public static getQueries(
-    data: GSCGetQueriesData
+    data: GSCGetQueriesData,
   ): CancelablePromise<GSCQueriesResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -200,7 +200,7 @@ export class GSCService {
    * Get GSC page performance data.
    */
   public static getPages(
-    data: GSCGetPagesData
+    data: GSCGetPagesData,
   ): CancelablePromise<GSCPagesResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -227,7 +227,7 @@ export class GSCService {
    * Get SEO opportunities based on GSC data.
    */
   public static getOpportunities(
-    data: GSCGetOpportunitiesData
+    data: GSCGetOpportunitiesData,
   ): CancelablePromise<OpportunitiesResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -255,7 +255,7 @@ export class GSCService {
    * Get keyword clusters for the project.
    */
   public static getClusters(
-    data: GSCGetClustersData
+    data: GSCGetClustersData,
   ): CancelablePromise<ClustersResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -278,7 +278,7 @@ export class GSCService {
    * Get a single cluster with its members.
    */
   public static getClusterDetail(
-    data: GSCGetClusterDetailData
+    data: GSCGetClusterDetailData,
   ): CancelablePromise<ClusterDetailResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -298,7 +298,7 @@ export class GSCService {
    * Generate keyword clusters for the project.
    */
   public static generateClusters(
-    data: GSCGenerateClustersData
+    data: GSCGenerateClustersData,
   ): CancelablePromise<{ message: string; task_id: string }> {
     return __request(OpenAPI, {
       method: "POST",
@@ -331,7 +331,7 @@ export class GSCService {
    * Get the authorization URL to connect Google Search Console.
    */
   public static startGoogleOAuth(
-    service: "gsc" | "ads"
+    service: "gsc" | "ads",
   ): CancelablePromise<{ authorization_url: string; state: string }> {
     return __request(OpenAPI, {
       method: "GET",
@@ -350,7 +350,7 @@ export class GSCService {
    * Disconnect a Google integration.
    */
   public static disconnectGoogleIntegration(
-    service: "gsc" | "ads"
+    service: "gsc" | "ads",
   ): CancelablePromise<{ message: string }> {
     return __request(OpenAPI, {
       method: "DELETE",

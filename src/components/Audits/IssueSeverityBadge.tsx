@@ -1,6 +1,6 @@
-import { IssueSeverity } from "@/types/audit"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { IssueSeverity } from "@/types/audit"
 
 interface IssueSeverityBadgeProps {
   severity: IssueSeverity
@@ -21,11 +21,13 @@ export function IssueSeverityBadge({
     },
     [IssueSeverity.HIGH]: {
       label: "High",
-      className: "bg-orange-100 text-orange-800 border-orange-200 hover:bg-orange-100",
+      className:
+        "bg-orange-100 text-orange-800 border-orange-200 hover:bg-orange-100",
     },
     [IssueSeverity.MEDIUM]: {
       label: "Medium",
-      className: "bg-yellow-100 text-yellow-800 border-yellow-200 hover:bg-yellow-100",
+      className:
+        "bg-yellow-100 text-yellow-800 border-yellow-200 hover:bg-yellow-100",
     },
     [IssueSeverity.LOW]: {
       label: "Low",

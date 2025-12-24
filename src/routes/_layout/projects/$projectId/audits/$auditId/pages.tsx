@@ -2,11 +2,10 @@ import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { ArrowLeft, Filter } from "lucide-react"
 import { useState } from "react"
-
-import { AuditsService } from "@/services/audits"
-import { DataTable } from "@/components/Common/DataTable"
 import { pageColumns } from "@/components/Audits/pageColumns"
+import { DataTable } from "@/components/Common/DataTable"
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -15,10 +14,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Label } from "@/components/ui/label"
+import { AuditsService } from "@/services/audits"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/audits/$auditId/pages"
+  "/_layout/projects/$projectId/audits/$auditId/pages",
 )({
   component: AuditPages,
 })
@@ -84,7 +83,7 @@ function AuditPages() {
             <Select
               value={statusCode?.toString() || "all"}
               onValueChange={(value) =>
-                setStatusCode(value === "all" ? undefined : parseInt(value))
+                setStatusCode(value === "all" ? undefined : parseInt(value, 10))
               }
             >
               <SelectTrigger id="status-filter">
@@ -107,11 +106,15 @@ function AuditPages() {
             </Label>
             <Select
               value={
-                isRendered === undefined ? "all" : isRendered ? "rendered" : "not-rendered"
+                isRendered === undefined
+                  ? "all"
+                  : isRendered
+                    ? "rendered"
+                    : "not-rendered"
               }
               onValueChange={(value) =>
                 setIsRendered(
-                  value === "all" ? undefined : value === "rendered"
+                  value === "all" ? undefined : value === "rendered",
                 )
               }
             >

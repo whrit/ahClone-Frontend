@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table"
-import type { CrawledPagePublic } from "@/types/audit"
 import { CheckCircle2, XCircle } from "lucide-react"
+import type { CrawledPagePublic } from "@/types/audit"
 
 function getStatusColor(statusCode: number): string {
   if (statusCode >= 200 && statusCode < 300) return "text-green-600"
@@ -42,8 +42,13 @@ export const pageColumns: ColumnDef<CrawledPagePublic>[] = [
     accessorKey: "title",
     header: "Title",
     cell: ({ row }) => (
-      <div className="max-w-xs truncate text-sm" title={row.original.title || undefined}>
-        {row.original.title || <span className="text-muted-foreground">No title</span>}
+      <div
+        className="max-w-xs truncate text-sm"
+        title={row.original.title || undefined}
+      >
+        {row.original.title || (
+          <span className="text-muted-foreground">No title</span>
+        )}
       </div>
     ),
   },
@@ -61,7 +66,9 @@ export const pageColumns: ColumnDef<CrawledPagePublic>[] = [
     header: "Response Time",
     cell: ({ row }) => (
       <span className="text-sm text-muted-foreground">
-        {row.original.response_time_ms ? `${row.original.response_time_ms}ms` : "-"}
+        {row.original.response_time_ms
+          ? `${row.original.response_time_ms}ms`
+          : "-"}
       </span>
     ),
   },

@@ -1,8 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
-
-import type { ProjectPublic } from "@/types/project"
-import { ProjectsService } from "@/services/projects"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -14,6 +11,8 @@ import {
 } from "@/components/ui/dialog"
 import { LoadingButton } from "@/components/ui/loading-button"
 import useCustomToast from "@/hooks/useCustomToast"
+import { ProjectsService } from "@/services/projects"
+import type { ProjectPublic } from "@/types/project"
 import { handleError } from "@/utils"
 
 interface DeleteProjectProps {

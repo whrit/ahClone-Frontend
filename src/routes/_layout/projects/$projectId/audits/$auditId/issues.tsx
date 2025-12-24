@@ -2,11 +2,10 @@ import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { ArrowLeft, Download, Filter } from "lucide-react"
 import { useState } from "react"
-
-import { AuditsService } from "@/services/audits"
-import { DataTable } from "@/components/Common/DataTable"
 import { issueColumns } from "@/components/Audits/issueColumns"
+import { DataTable } from "@/components/Common/DataTable"
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -15,11 +14,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+import { AuditsService } from "@/services/audits"
 import { IssueSeverity, IssueType } from "@/types/audit"
-import { Label } from "@/components/ui/label"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/audits/$auditId/issues"
+  "/_layout/projects/$projectId/audits/$auditId/issues",
 )({
   component: AuditIssues,
 })
@@ -31,7 +30,15 @@ function AuditIssues() {
   const [isNew, setIsNew] = useState<boolean | undefined>(undefined)
 
   const { data: issues, isLoading } = useQuery({
-    queryKey: ["audits", projectId, auditId, "issues", severity, issueType, isNew],
+    queryKey: [
+      "audits",
+      projectId,
+      auditId,
+      "issues",
+      severity,
+      issueType,
+      isNew,
+    ],
     queryFn: () =>
       AuditsService.getAuditIssues({
         projectId,
@@ -101,7 +108,9 @@ function AuditIssues() {
             <Select
               value={severity || "all"}
               onValueChange={(value) =>
-                setSeverity(value === "all" ? undefined : (value as IssueSeverity))
+                setSeverity(
+                  value === "all" ? undefined : (value as IssueSeverity),
+                )
               }
             >
               <SelectTrigger id="severity-filter">
@@ -134,7 +143,10 @@ function AuditIssues() {
                 <SelectItem value="all">All types</SelectItem>
                 {Object.values(IssueType).map((type) => (
                   <SelectItem key={type} value={type}>
-                    {type.split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
+                    {type
+                      .split("_")
+                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                      .join(" ")}
                   </SelectItem>
                 ))}
               </SelectContent>

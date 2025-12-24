@@ -1,12 +1,12 @@
+import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import { OpenAPI } from "@/client/core/OpenAPI"
 import { request as __request } from "@/client/core/request"
-import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import type {
-  CampaignsResponse,
-  SEOPPCOverlapResponse,
   AdsSyncResponse,
   CampaignParams,
+  CampaignsResponse,
   OverlapParams,
+  SEOPPCOverlapResponse,
 } from "@/types/ads"
 
 export interface AdsGetCampaignsData {
@@ -29,7 +29,7 @@ export class AdsService {
    * Get Google Ads campaign performance data.
    */
   public static getCampaigns(
-    data: AdsGetCampaignsData
+    data: AdsGetCampaignsData,
   ): CancelablePromise<CampaignsResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -51,7 +51,7 @@ export class AdsService {
    * Get keyword overlap analysis between SEO and PPC.
    */
   public static getOverlap(
-    data: AdsGetOverlapData
+    data: AdsGetOverlapData,
   ): CancelablePromise<SEOPPCOverlapResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -76,7 +76,7 @@ export class AdsService {
    * Trigger a Google Ads data sync for the project.
    */
   public static triggerSync(
-    data: AdsTriggerSyncData
+    data: AdsTriggerSyncData,
   ): CancelablePromise<AdsSyncResponse> {
     return __request(OpenAPI, {
       method: "POST",

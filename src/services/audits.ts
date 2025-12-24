@@ -1,12 +1,12 @@
+import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import { OpenAPI } from "@/client/core/OpenAPI"
 import { request as __request } from "@/client/core/request"
-import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import type {
+  AuditIssuesPublic,
   AuditRunPublic,
   AuditRunsPublic,
-  AuditIssuesPublic,
-  CrawledPagesPublic,
   CrawledPagePublic,
+  CrawledPagesPublic,
   IssueSeverity,
   IssueType,
 } from "@/types/audit"
@@ -57,7 +57,7 @@ export class AuditsService {
    * Create new audit run and queue it for execution.
    */
   public static startAudit(
-    data: AuditsStartAuditData
+    data: AuditsStartAuditData,
   ): CancelablePromise<AuditRunPublic> {
     return __request(OpenAPI, {
       method: "POST",
@@ -76,7 +76,7 @@ export class AuditsService {
    * List all audit runs for a project with pagination.
    */
   public static listAudits(
-    data: AuditsListAuditsData
+    data: AuditsListAuditsData,
   ): CancelablePromise<AuditRunsPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -99,7 +99,7 @@ export class AuditsService {
    * Get a single audit run by ID.
    */
   public static getAudit(
-    data: AuditsGetAuditData
+    data: AuditsGetAuditData,
   ): CancelablePromise<AuditRunPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -119,7 +119,7 @@ export class AuditsService {
    * Get issues for an audit run with optional filters.
    */
   public static getAuditIssues(
-    data: AuditsGetAuditIssuesData
+    data: AuditsGetAuditIssuesData,
   ): CancelablePromise<AuditIssuesPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -146,7 +146,7 @@ export class AuditsService {
    * Get crawled pages for an audit run with optional filters.
    */
   public static getAuditPages(
-    data: AuditsGetAuditPagesData
+    data: AuditsGetAuditPagesData,
   ): CancelablePromise<CrawledPagesPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -172,7 +172,7 @@ export class AuditsService {
    * Get a single crawled page by ID.
    */
   public static getPageDetail(
-    data: AuditsGetPageDetailData
+    data: AuditsGetPageDetailData,
   ): CancelablePromise<CrawledPagePublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -198,7 +198,7 @@ export class AuditsService {
       severity?: IssueSeverity
       issueType?: IssueType
       isNew?: boolean
-    }
+    },
   ): string {
     const params = new URLSearchParams()
     if (filters?.severity) params.append("severity", filters.severity)

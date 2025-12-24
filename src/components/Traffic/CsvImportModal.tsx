@@ -1,9 +1,8 @@
-import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Upload, FileText, X } from "lucide-react"
+import { FileText, Upload, X } from "lucide-react"
+import { useState } from "react"
 import { toast } from "sonner"
-
-import { TrafficService } from "@/services/traffic"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -12,8 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
+import { TrafficService } from "@/services/traffic"
 
 interface CsvImportModalProps {
   projectId: string
@@ -30,8 +29,7 @@ export function CsvImportModal({
   const queryClient = useQueryClient()
 
   const importMutation = useMutation({
-    mutationFn: (file: File) =>
-      TrafficService.importCsv({ projectId, file }),
+    mutationFn: (file: File) => TrafficService.importCsv({ projectId, file }),
     onSuccess: (data) => {
       toast.success(`Successfully imported ${data.rows_imported} rows`)
       // Invalidate traffic queries to refetch data

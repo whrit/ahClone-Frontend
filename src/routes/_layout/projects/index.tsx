@@ -2,12 +2,11 @@ import { useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { FolderOpen, Plus } from "lucide-react"
 import { Suspense } from "react"
-
-import { ProjectsService } from "@/services/projects"
 import { DataTable } from "@/components/Common/DataTable"
+import PendingItems from "@/components/Pending/PendingItems"
 import { columns } from "@/components/Projects/columns"
 import { Button } from "@/components/ui/button"
-import PendingItems from "@/components/Pending/PendingItems"
+import { ProjectsService } from "@/services/projects"
 
 function getProjectsQueryOptions() {
   return {

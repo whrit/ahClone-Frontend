@@ -1,19 +1,15 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { RefreshCw, TrendingUp, MousePointerClick, DollarSign, Target } from "lucide-react"
+import {
+  DollarSign,
+  MousePointerClick,
+  RefreshCw,
+  Target,
+  TrendingUp,
+} from "lucide-react"
 import { Suspense, useState } from "react"
 import { toast } from "sonner"
-
-import { AdsService } from "@/services/ads"
-import { GSCService } from "@/services/gsc"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -23,6 +19,14 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
   Table,
   TableBody,
   TableCell,
@@ -30,11 +34,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+import { AdsService } from "@/services/ads"
+import { GSCService } from "@/services/gsc"
 
-export const Route = createFileRoute(
-  "/_layout/projects/$projectId/ppc/"
-)({
+export const Route = createFileRoute("/_layout/projects/$projectId/ppc/")({
   component: RouteComponent,
   head: () => ({
     meta: [
@@ -90,7 +93,9 @@ function formatCPC(micros: number): string {
   return formatCurrency(micros)
 }
 
-function getStatusBadgeVariant(status: string): "default" | "secondary" | "destructive" | "outline" {
+function getStatusBadgeVariant(
+  status: string,
+): "default" | "secondary" | "destructive" | "outline" {
   switch (status.toUpperCase()) {
     case "ENABLED":
       return "default"
@@ -111,7 +116,7 @@ function AdsConnectCard() {
     try {
       const result = await GSCService.startGoogleOAuth("ads")
       window.location.href = result.authorization_url
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to start Google Ads connection")
       setIsConnecting(false)
     }
@@ -122,8 +127,8 @@ function AdsConnectCard() {
       <CardHeader>
         <CardTitle>Connect Google Ads</CardTitle>
         <CardDescription>
-          Connect your Google Ads account to analyze campaign performance and find opportunities
-          to optimize your paid and organic search strategy.
+          Connect your Google Ads account to analyze campaign performance and
+          find opportunities to optimize your paid and organic search strategy.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -134,9 +139,7 @@ function AdsConnectCard() {
               Connecting...
             </>
           ) : (
-            <>
-              Connect Google Ads
-            </>
+            <>Connect Google Ads</>
           )}
         </Button>
       </CardContent>
@@ -160,7 +163,7 @@ function PPCContent() {
       AdsService.getCampaigns({
         projectId,
         params: {
-          period_days: Number.parseInt(period),
+          period_days: Number.parseInt(period, 10),
         },
       }),
     enabled: integrationStatus?.ads_connected === true,
@@ -203,22 +206,22 @@ function PPCContent() {
       cost: acc.cost + campaign.cost_micros,
       conversions: acc.conversions + campaign.conversions,
     }),
-    { impressions: 0, clicks: 0, cost: 0, conversions: 0 }
+    { impressions: 0, clicks: 0, cost: 0, conversions: 0 },
   )
 
-  const avgCTR = totals && totals.impressions > 0
-    ? totals.clicks / totals.impressions
-    : 0
+  const avgCTR =
+    totals && totals.impressions > 0 ? totals.clicks / totals.impressions : 0
 
-  const avgCPC = totals && totals.clicks > 0
-    ? totals.cost / totals.clicks
-    : 0
+  const avgCPC = totals && totals.clicks > 0 ? totals.cost / totals.clicks : 0
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div className="flex gap-2">
-          <Select value={period} onValueChange={(v) => setPeriod(v as typeof period)}>
+          <Select
+            value={period}
+            onValueChange={(v) => setPeriod(v as typeof period)}
+          >
             <SelectTrigger className="w-40">
               <SelectValue />
             </SelectTrigger>
@@ -259,7 +262,9 @@ function PPCContent() {
           <MetricCard
             title="Clicks"
             value={formatNumber(totals.clicks)}
-            icon={<MousePointerClick className="h-4 w-4 text-muted-foreground" />}
+            icon={
+              <MousePointerClick className="h-4 w-4 text-muted-foreground" />
+            }
           />
           <MetricCard
             title="Total Cost"
@@ -279,7 +284,8 @@ function PPCContent() {
         <CardHeader>
           <CardTitle>Campaign Performance</CardTitle>
           <CardDescription>
-            Performance metrics for your Google Ads campaigns over the last {period} days
+            Performance metrics for your Google Ads campaigns over the last{" "}
+            {period} days
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -305,7 +311,11 @@ function PPCContent() {
                         {campaign.campaign_name}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Badge variant={getStatusBadgeVariant(campaign.campaign_status)}>
+                        <Badge
+                          variant={getStatusBadgeVariant(
+                            campaign.campaign_status,
+                          )}
+                        >
                           {campaign.campaign_status}
                         </Badge>
                       </TableCell>

@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { Link2, ArrowLeft } from "lucide-react"
+import { ArrowLeft, Link2 } from "lucide-react"
 import { Suspense, useState } from "react"
 
 import { BacklinkTable } from "@/components/Backlinks/BacklinkTable"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
 import { LinksService } from "@/services/links"
 import { ProjectsService } from "@/services/projects"
 
@@ -16,7 +16,7 @@ interface BacklinksSearch {
 }
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/links/backlinks"
+  "/_layout/projects/$projectId/links/backlinks",
 )({
   component: RouteComponent,
   validateSearch: (search: Record<string, unknown>): BacklinksSearch => {
@@ -47,7 +47,9 @@ function BacklinksContent() {
   })
 
   // Extract domain from seed_url
-  const targetDomain = project?.seed_url ? new URL(project.seed_url).hostname : ""
+  const targetDomain = project?.seed_url
+    ? new URL(project.seed_url).hostname
+    : ""
 
   const { data: backlinks, isLoading } = useQuery({
     queryKey: ["backlinks", targetDomain, domainFilter, page],

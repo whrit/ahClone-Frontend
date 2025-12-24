@@ -1,9 +1,9 @@
-import type { ColumnDef } from "@tanstack/react-table"
 import { Link } from "@tanstack/react-router"
-import type { AuditRunPublic } from "@/types/audit"
-import { AuditStatusBadge } from "./AuditStatusBadge"
+import type { ColumnDef } from "@tanstack/react-table"
 import { Progress } from "@/components/ui/progress"
+import type { AuditRunPublic } from "@/types/audit"
 import { AuditStatus } from "@/types/audit"
+import { AuditStatusBadge } from "./AuditStatusBadge"
 
 function formatDate(date: string | null): string {
   if (!date) return "Not started"
@@ -17,7 +17,10 @@ function formatDate(date: string | null): string {
   }).format(d)
 }
 
-function formatDuration(startedAt: string | null, finishedAt: string | null): string {
+function formatDuration(
+  startedAt: string | null,
+  finishedAt: string | null,
+): string {
   if (!startedAt) return "-"
   if (!finishedAt) return "In progress"
 
@@ -27,11 +30,14 @@ function formatDuration(startedAt: string | null, finishedAt: string | null): st
   const durationSec = Math.floor(durationMs / 1000)
 
   if (durationSec < 60) return `${durationSec}s`
-  if (durationSec < 3600) return `${Math.floor(durationSec / 60)}m ${durationSec % 60}s`
+  if (durationSec < 3600)
+    return `${Math.floor(durationSec / 60)}m ${durationSec % 60}s`
   return `${Math.floor(durationSec / 3600)}h ${Math.floor((durationSec % 3600) / 60)}m`
 }
 
-export function createAuditColumns(projectId: string): ColumnDef<AuditRunPublic>[] {
+export function createAuditColumns(
+  projectId: string,
+): ColumnDef<AuditRunPublic>[] {
   return [
     {
       accessorKey: "created_at",
@@ -63,7 +69,8 @@ export function createAuditColumns(projectId: string): ColumnDef<AuditRunPublic>
           AuditStatus.DIFFING,
         ].includes(row.original.status)
 
-        if (!isInProgress) return <span className="text-sm text-muted-foreground">-</span>
+        if (!isInProgress)
+          return <span className="text-sm text-muted-foreground">-</span>
 
         return (
           <div className="flex items-center gap-2">
@@ -111,7 +118,9 @@ export function createAuditColumns(projectId: string): ColumnDef<AuditRunPublic>
               </span>
             )}
             {stats.issues_low > 0 && (
-              <span className="text-blue-600 font-medium">{stats.issues_low} L</span>
+              <span className="text-blue-600 font-medium">
+                {stats.issues_low} L
+              </span>
             )}
           </div>
         )

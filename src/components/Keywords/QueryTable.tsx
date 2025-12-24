@@ -8,7 +8,10 @@ export function createQueryColumns(): ColumnDef<GSCQueryRow>[] {
       accessorKey: "query",
       header: "Query",
       cell: ({ row }) => (
-        <div className="font-medium max-w-md truncate" title={row.getValue("query")}>
+        <div
+          className="font-medium max-w-md truncate"
+          title={row.getValue("query")}
+        >
           {row.getValue("query")}
         </div>
       ),

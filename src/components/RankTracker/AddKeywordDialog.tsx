@@ -1,6 +1,8 @@
-import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Plus } from "lucide-react"
+import { useState } from "react"
+import { toast } from "sonner"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -10,7 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -20,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { toast } from "sonner"
 
 interface AddKeywordDialogProps {
   projectId: string
@@ -31,11 +31,16 @@ interface AddKeywordDialogProps {
   }) => Promise<void>
 }
 
-export function AddKeywordDialog({ projectId, onAddKeyword }: AddKeywordDialogProps) {
+export function AddKeywordDialog({
+  projectId,
+  onAddKeyword,
+}: AddKeywordDialogProps) {
   const [open, setOpen] = useState(false)
   const [keyword, setKeyword] = useState("")
   const [locale, setLocale] = useState("us")
-  const [device, setDevice] = useState<"desktop" | "mobile" | "tablet">("desktop")
+  const [device, setDevice] = useState<"desktop" | "mobile" | "tablet">(
+    "desktop",
+  )
   const queryClient = useQueryClient()
 
   const addMutation = useMutation({
@@ -113,7 +118,12 @@ export function AddKeywordDialog({ projectId, onAddKeyword }: AddKeywordDialogPr
           </div>
           <div className="grid gap-2">
             <Label htmlFor="device">Device</Label>
-            <Select value={device} onValueChange={(v) => setDevice(v as "desktop" | "mobile" | "tablet")}>
+            <Select
+              value={device}
+              onValueChange={(v) =>
+                setDevice(v as "desktop" | "mobile" | "tablet")
+              }
+            >
               <SelectTrigger id="device">
                 <SelectValue />
               </SelectTrigger>
@@ -129,7 +139,10 @@ export function AddKeywordDialog({ projectId, onAddKeyword }: AddKeywordDialogPr
           <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={() => addMutation.mutate()} disabled={addMutation.isPending}>
+          <Button
+            onClick={() => addMutation.mutate()}
+            disabled={addMutation.isPending}
+          >
             {addMutation.isPending ? "Adding..." : "Add Keyword"}
           </Button>
         </DialogFooter>

@@ -1,7 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table"
+import { Badge } from "@/components/ui/badge"
 import type { AuditIssuePublic } from "@/types/audit"
 import { IssueSeverityBadge } from "./IssueSeverityBadge"
-import { Badge } from "@/components/ui/badge"
 
 // Helper to format issue type for display
 function formatIssueType(issueType: string): string {

@@ -3,13 +3,9 @@ import { createFileRoute } from "@tanstack/react-router"
 import type { ColumnDef } from "@tanstack/react-table"
 import { Lightbulb } from "lucide-react"
 import { Suspense, useState } from "react"
-
-import { GSCService } from "@/services/gsc"
-import type { OpportunityRow } from "@/types/gsc"
-import { OpportunityType } from "@/types/gsc"
+import { DataTable } from "@/components/Common/DataTable"
 import { GSCConnectCard } from "@/components/Keywords/GSCConnectCard"
 import { OpportunityBadge } from "@/components/Keywords/OpportunityBadge"
-import { DataTable } from "@/components/Common/DataTable"
 import {
   Card,
   CardContent,
@@ -25,9 +21,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+import { GSCService } from "@/services/gsc"
+import type { OpportunityRow } from "@/types/gsc"
+import { OpportunityType } from "@/types/gsc"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/keywords/opportunities"
+  "/_layout/projects/$projectId/keywords/opportunities",
 )({
   component: RouteComponent,
   head: () => ({
@@ -45,7 +44,10 @@ function createOpportunityColumns(): ColumnDef<OpportunityRow>[] {
       accessorKey: "query",
       header: "Query",
       cell: ({ row }) => (
-        <div className="font-medium max-w-md truncate" title={row.getValue("query")}>
+        <div
+          className="font-medium max-w-md truncate"
+          title={row.getValue("query")}
+        >
           {row.getValue("query")}
         </div>
       ),
@@ -244,7 +246,10 @@ function OpportunitiesContent() {
       </div>
 
       {opportunities?.data && opportunities.data.length > 0 ? (
-        <DataTable columns={createOpportunityColumns()} data={opportunities.data} />
+        <DataTable
+          columns={createOpportunityColumns()}
+          data={opportunities.data}
+        />
       ) : (
         <div className="flex flex-col items-center justify-center text-center py-12">
           <div className="rounded-full bg-muted p-4 mb-4">
@@ -267,7 +272,9 @@ function RouteComponent() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">SEO Opportunities</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            SEO Opportunities
+          </h1>
           <p className="text-muted-foreground">
             Identify quick wins and areas for improvement
           </p>

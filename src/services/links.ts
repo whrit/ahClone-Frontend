@@ -9,20 +9,20 @@
  * - Link building opportunities (intersect)
  */
 
+import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import { OpenAPI } from "@/client/core/OpenAPI"
 import { request as __request } from "@/client/core/request"
-import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import type {
-  RefDomainsResponse,
-  BacklinksResponse,
   AnchorsResponse,
-  OverlapResponse,
-  IntersectResponse,
-  GetRefDomainsParams,
-  GetBacklinksParams,
+  BacklinksResponse,
   GetAnchorsParams,
-  GetOverlapParams,
+  GetBacklinksParams,
   GetIntersectParams,
+  GetOverlapParams,
+  GetRefDomainsParams,
+  IntersectResponse,
+  OverlapResponse,
+  RefDomainsResponse,
 } from "@/types/links"
 
 export class LinksService {
@@ -36,7 +36,7 @@ export class LinksService {
    * @returns Promise with referring domains data
    */
   public static getRefDomains(
-    params: GetRefDomainsParams
+    params: GetRefDomainsParams,
   ): CancelablePromise<RefDomainsResponse> {
     const { domain, skip = 0, limit = 100 } = params
 
@@ -67,7 +67,7 @@ export class LinksService {
    * @returns Promise with backlinks data
    */
   public static getBacklinks(
-    params: GetBacklinksParams
+    params: GetBacklinksParams,
   ): CancelablePromise<BacklinksResponse> {
     const { domain, ref_domain, skip = 0, limit = 100 } = params
 
@@ -100,7 +100,7 @@ export class LinksService {
    * @returns Promise with anchor text data
    */
   public static getAnchorTexts(
-    params: GetAnchorsParams
+    params: GetAnchorsParams,
   ): CancelablePromise<AnchorsResponse> {
     const { domain, skip = 0, limit = 100 } = params
 
@@ -132,7 +132,7 @@ export class LinksService {
    * @returns Promise with overlap analysis data
    */
   public static getCompetitorOverlap(
-    params: GetOverlapParams
+    params: GetOverlapParams,
   ): CancelablePromise<OverlapResponse> {
     const { domain, competitors } = params
 
@@ -163,7 +163,7 @@ export class LinksService {
    * @returns Promise with link gap analysis data
    */
   public static getCompetitorGap(
-    params: GetIntersectParams
+    params: GetIntersectParams,
   ): CancelablePromise<IntersectResponse> {
     const { domain, competitors } = params
 

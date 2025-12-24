@@ -21,8 +21,13 @@ export function AnchorChart({ data, maxItems = 10 }: AnchorChartProps) {
       {displayData.map((item, idx) => (
         <div key={idx} className="space-y-1">
           <div className="flex items-center justify-between text-sm">
-            <span className="font-medium truncate max-w-xs" title={item.anchor_text}>
-              {item.anchor_text || <span className="text-muted-foreground italic">No anchor</span>}
+            <span
+              className="font-medium truncate max-w-xs"
+              title={item.anchor_text}
+            >
+              {item.anchor_text || (
+                <span className="text-muted-foreground italic">No anchor</span>
+              )}
             </span>
             <div className="flex items-center gap-2 shrink-0">
               <Badge variant="secondary">{item.count}</Badge>
@@ -41,7 +46,7 @@ export function AnchorChart({ data, maxItems = 10 }: AnchorChartProps) {
                     ? "bg-blue-500"
                     : idx === 2
                       ? "bg-green-500"
-                      : "bg-muted-foreground/50"
+                      : "bg-muted-foreground/50",
               )}
               style={{
                 width: `${(item.count / maxCount) * 100}%`,

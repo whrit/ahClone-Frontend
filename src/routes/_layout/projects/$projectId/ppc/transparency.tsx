@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { Eye, Sparkles } from "lucide-react"
-
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -8,10 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/ppc/transparency"
+  "/_layout/projects/$projectId/ppc/transparency",
 )({
   component: RouteComponent,
   head: () => ({
@@ -29,7 +28,9 @@ function RouteComponent() {
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold tracking-tight">Ad Transparency</h1>
+            <h1 className="text-2xl font-bold tracking-tight">
+              Ad Transparency
+            </h1>
             <Badge variant="secondary">
               <Sparkles className="mr-1 h-3 w-3" />
               Coming Soon
@@ -56,22 +57,27 @@ function RouteComponent() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
               <Sparkles className="h-8 w-8 text-primary" />
             </div>
-            <h3 className="mb-2 text-lg font-semibold">Feature In Development</h3>
+            <h3 className="mb-2 text-lg font-semibold">
+              Feature In Development
+            </h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              We're building powerful ad transparency tools to help you understand your
-              competitors' advertising strategies. This feature will include:
+              We're building powerful ad transparency tools to help you
+              understand your competitors' advertising strategies. This feature
+              will include:
             </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Ad Creative Analysis</CardTitle>
+                <CardTitle className="text-base">
+                  Ad Creative Analysis
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  View and analyze competitor ad copy, headlines, and creative elements across
-                  search and display networks.
+                  View and analyze competitor ad copy, headlines, and creative
+                  elements across search and display networks.
                 </p>
               </CardContent>
             </Card>
@@ -82,20 +88,22 @@ function RouteComponent() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Track how competitors adjust their advertising strategies over time with
-                  historical ad creative archives.
+                  Track how competitors adjust their advertising strategies over
+                  time with historical ad creative archives.
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Landing Page Insights</CardTitle>
+                <CardTitle className="text-base">
+                  Landing Page Insights
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Discover which landing pages competitors use for their ads and analyze their
-                  conversion optimization strategies.
+                  Discover which landing pages competitors use for their ads and
+                  analyze their conversion optimization strategies.
                 </p>
               </CardContent>
             </Card>
@@ -106,8 +114,8 @@ function RouteComponent() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Identify which keywords your competitors are bidding on and discover new
-                  targeting opportunities.
+                  Identify which keywords your competitors are bidding on and
+                  discover new targeting opportunities.
                 </p>
               </CardContent>
             </Card>
@@ -116,7 +124,8 @@ function RouteComponent() {
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
             <p className="text-sm font-medium">Stay tuned!</p>
             <p className="text-sm text-muted-foreground mt-1">
-              This feature will be available in an upcoming release. We'll notify you when it's ready.
+              This feature will be available in an upcoming release. We'll
+              notify you when it's ready.
             </p>
           </div>
         </CardContent>

@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from "date-fns"
+import { ExternalLink } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   Table,
@@ -7,8 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { formatDistanceToNow } from "date-fns"
-import { ExternalLink } from "lucide-react"
 
 interface Backlink {
   id: string
@@ -71,13 +71,22 @@ export function BacklinkTable({ data }: BacklinkTableProps) {
               </a>
             </TableCell>
             <TableCell>
-              <span className="text-sm max-w-xs truncate inline-block" title={backlink.anchor_text}>
-                {backlink.anchor_text || <span className="text-muted-foreground italic">No anchor</span>}
+              <span
+                className="text-sm max-w-xs truncate inline-block"
+                title={backlink.anchor_text}
+              >
+                {backlink.anchor_text || (
+                  <span className="text-muted-foreground italic">
+                    No anchor
+                  </span>
+                )}
               </span>
             </TableCell>
             <TableCell>
               <Badge
-                variant={backlink.link_type === "dofollow" ? "default" : "outline"}
+                variant={
+                  backlink.link_type === "dofollow" ? "default" : "outline"
+                }
               >
                 {backlink.link_type}
               </Badge>

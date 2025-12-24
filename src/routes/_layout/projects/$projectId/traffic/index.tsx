@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { Upload, TrendingUp, Activity, AlertCircle } from "lucide-react"
-import { Suspense, useState } from "react"
 import { format } from "date-fns"
-
-import { TrafficService } from "@/services/traffic"
-import { TrafficChart } from "@/components/Traffic/TrafficChart"
+import { Activity, AlertCircle, TrendingUp, Upload } from "lucide-react"
+import { Suspense, useState } from "react"
 import { CsvImportModal } from "@/components/Traffic/CsvImportModal"
+import { TrafficChart } from "@/components/Traffic/TrafficChart"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -15,6 +16,14 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
   Table,
   TableBody,
   TableCell,
@@ -22,17 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { TrafficService } from "@/services/traffic"
 
 export const Route = createFileRoute("/_layout/projects/$projectId/traffic/")({
   component: RouteComponent,
@@ -45,7 +44,10 @@ export const Route = createFileRoute("/_layout/projects/$projectId/traffic/")({
   }),
 })
 
-function formatMetric(value: number | null, type: "number" | "decimal" | "seconds"): string {
+function formatMetric(
+  value: number | null,
+  type: "number" | "decimal" | "seconds",
+): string {
   if (value === null) return "—"
 
   switch (type) {
@@ -104,7 +106,9 @@ function TrafficContent() {
         <div className="flex gap-2">
           <Select
             value={period.toString()}
-            onValueChange={(v) => setPeriod(Number.parseInt(v) as 7 | 14 | 28 | 90)}
+            onValueChange={(v) =>
+              setPeriod(Number.parseInt(v, 10) as 7 | 14 | 28 | 90)
+            }
           >
             <SelectTrigger className="w-40">
               <SelectValue />
@@ -261,7 +265,8 @@ function RouteComponent() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Traffic Panel</h1>
           <p className="text-muted-foreground">
-            Multi-source traffic dashboard combining GA4, GSC, and Core Web Vitals
+            Multi-source traffic dashboard combining GA4, GSC, and Core Web
+            Vitals
           </p>
         </div>
       </div>

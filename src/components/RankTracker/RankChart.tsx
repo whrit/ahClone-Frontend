@@ -1,13 +1,13 @@
+import { format } from "date-fns"
 import {
-  LineChart,
+  CartesianGrid,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
 } from "recharts"
-import { format } from "date-fns"
 
 interface RankDataPoint {
   date: string
@@ -40,7 +40,10 @@ export function RankChart({ data, className }: RankChartProps) {
   return (
     <div className={className}>
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <LineChart
+          data={chartData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
           <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
           <XAxis
             dataKey="formattedDate"
@@ -61,7 +64,10 @@ export function RankChart({ data, className }: RankChartProps) {
               borderRadius: "6px",
             }}
             labelStyle={{ color: "hsl(var(--foreground))" }}
-            formatter={(value: number | undefined) => [`Position #${value ?? "N/A"}`, "Rank"]}
+            formatter={(value: number | undefined) => [
+              `Position #${value ?? "N/A"}`,
+              "Rank",
+            ]}
           />
           <Line
             type="monotone"

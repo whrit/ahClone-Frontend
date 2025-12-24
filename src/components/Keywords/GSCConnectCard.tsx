@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { ExternalLink, Link2 } from "lucide-react"
-
-import { GSCService } from "@/services/gsc"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -11,8 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import useCustomToast from "@/hooks/useCustomToast"
+import { GSCService } from "@/services/gsc"
 
 interface GSCConnectCardProps {
   projectId: string
@@ -70,11 +69,13 @@ export function GSCConnectCard({ projectId }: GSCConnectCardProps) {
             <div className="rounded-lg bg-primary/10 p-2">
               <Link2 className="h-5 w-5 text-primary" />
             </div>
-            <CardTitle className="text-lg">Connect Google Search Console</CardTitle>
+            <CardTitle className="text-lg">
+              Connect Google Search Console
+            </CardTitle>
           </div>
           <CardDescription>
-            Connect your Google Search Console account to track keyword performance
-            and rankings
+            Connect your Google Search Console account to track keyword
+            performance and rankings
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -123,8 +124,8 @@ export function GSCConnectCard({ projectId }: GSCConnectCardProps) {
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
-            No GSC property is linked to this project yet. Please select a property
-            from your Google Search Console account.
+            No GSC property is linked to this project yet. Please select a
+            property from your Google Search Console account.
           </p>
         </CardContent>
         <CardFooter>

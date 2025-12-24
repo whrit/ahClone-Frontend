@@ -2,18 +2,15 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import { FileSearch, Play } from "lucide-react"
 import { Suspense } from "react"
-
-import { AuditsService } from "@/services/audits"
-import { DataTable } from "@/components/Common/DataTable"
 import { createAuditColumns } from "@/components/Audits/auditColumns"
+import { DataTable } from "@/components/Common/DataTable"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import useCustomToast from "@/hooks/useCustomToast"
+import { AuditsService } from "@/services/audits"
 import { AuditStatus } from "@/types/audit"
 
-export const Route = createFileRoute(
-  "/_layout/projects/$projectId/audits/"
-)({
+export const Route = createFileRoute("/_layout/projects/$projectId/audits/")({
   component: Audits,
   head: () => ({
     meta: [
@@ -41,7 +38,7 @@ function AuditsContent() {
           AuditStatus.RENDERING,
           AuditStatus.ANALYZING,
           AuditStatus.DIFFING,
-        ].includes(audit.status)
+        ].includes(audit.status),
       )
       return hasRunningAudits ? 5000 : false
     },
@@ -54,7 +51,9 @@ function AuditsContent() {
       showSuccessToast("Your audit has been queued and will start shortly.")
     },
     onError: (error: any) => {
-      showErrorToast(error.message || "An error occurred while starting the audit.")
+      showErrorToast(
+        error.message || "An error occurred while starting the audit.",
+      )
     },
   })
 
@@ -88,7 +87,9 @@ function AuditsContent() {
     )
   }
 
-  return <DataTable columns={createAuditColumns(projectId)} data={audits.data} />
+  return (
+    <DataTable columns={createAuditColumns(projectId)} data={audits.data} />
+  )
 }
 
 function Audits() {
@@ -103,7 +104,9 @@ function Audits() {
       showSuccessToast("Your audit has been queued and will start shortly.")
     },
     onError: (error: any) => {
-      showErrorToast(error.message || "An error occurred while starting the audit.")
+      showErrorToast(
+        error.message || "An error occurred while starting the audit.",
+      )
     },
   })
 

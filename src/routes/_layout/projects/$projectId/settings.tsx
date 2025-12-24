@@ -5,9 +5,7 @@ import { ArrowLeft, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
-import type { ProjectUpdate } from "@/types/project"
-import { ProjectsService } from "@/services/projects"
+import { DeleteProject } from "@/components/Projects/DeleteProject"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -26,12 +24,13 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { LoadingButton } from "@/components/ui/loading-button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { DeleteProject } from "@/components/Projects/DeleteProject"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Textarea } from "@/components/ui/textarea"
 import useCustomToast from "@/hooks/useCustomToast"
+import { ProjectsService } from "@/services/projects"
+import type { ProjectUpdate } from "@/types/project"
 import { handleError } from "@/utils"
 
 const generalFormSchema = z.object({
@@ -45,9 +44,7 @@ const generalFormSchema = z.object({
 
 type GeneralFormData = z.infer<typeof generalFormSchema>
 
-export const Route = createFileRoute(
-  "/_layout/projects/$projectId/settings"
-)({
+export const Route = createFileRoute("/_layout/projects/$projectId/settings")({
   component: ProjectSettings,
   head: () => ({
     meta: [
@@ -177,7 +174,8 @@ function ProjectSettings() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>
-                          Project Name <span className="text-destructive">*</span>
+                          Project Name{" "}
+                          <span className="text-destructive">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -255,8 +253,8 @@ function ProjectSettings() {
             <CardContent>
               <p className="text-sm text-muted-foreground">
                 Crawl settings configuration coming soon. This will include
-                options for max pages, depth, concurrency, user agent, robots.txt
-                handling, and URL patterns.
+                options for max pages, depth, concurrency, user agent,
+                robots.txt handling, and URL patterns.
               </p>
             </CardContent>
           </Card>
@@ -291,9 +289,9 @@ function ProjectSettings() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Schedule configuration coming soon. This will include options for
-                audit frequency, GSC sync frequency, SERP refresh frequency, and
-                data retention policies.
+                Schedule configuration coming soon. This will include options
+                for audit frequency, GSC sync frequency, SERP refresh frequency,
+                and data retention policies.
               </p>
             </CardContent>
           </Card>

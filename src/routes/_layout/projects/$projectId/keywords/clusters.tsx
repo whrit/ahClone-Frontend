@@ -2,10 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import { ChevronDown, ChevronRight, Sparkles } from "lucide-react"
 import { Suspense, useState } from "react"
-
-import { GSCService } from "@/services/gsc"
-import type { ClusterPublic, ClusterMemberPublic } from "@/types/gsc"
 import { GSCConnectCard } from "@/components/Keywords/GSCConnectCard"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -15,11 +13,12 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Badge } from "@/components/ui/badge"
 import useCustomToast from "@/hooks/useCustomToast"
+import { GSCService } from "@/services/gsc"
+import type { ClusterMemberPublic, ClusterPublic } from "@/types/gsc"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/keywords/clusters"
+  "/_layout/projects/$projectId/keywords/clusters",
 )({
   component: RouteComponent,
   head: () => ({
@@ -159,7 +158,7 @@ function ClustersContent() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["gsc-clusters", projectId] })
       showSuccessToast(
-        "Cluster generation started. This may take a few minutes."
+        "Cluster generation started. This may take a few minutes.",
       )
     },
     onError: (error: any) => {
@@ -190,8 +189,8 @@ function ClustersContent() {
         </div>
         <h3 className="text-lg font-semibold">No clusters yet</h3>
         <p className="text-muted-foreground mb-4">
-          Generate keyword clusters to group related queries and identify content
-          opportunities
+          Generate keyword clusters to group related queries and identify
+          content opportunities
         </p>
         <Button
           onClick={() => generateClustersMutation.mutate()}
@@ -226,7 +225,11 @@ function ClustersContent() {
 
       <div className="grid gap-4">
         {clusters.data.map((cluster) => (
-          <ClusterCard key={cluster.id} cluster={cluster} projectId={projectId} />
+          <ClusterCard
+            key={cluster.id}
+            cluster={cluster}
+            projectId={projectId}
+          />
         ))}
       </div>
     </div>
@@ -238,7 +241,9 @@ function RouteComponent() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Keyword Clusters</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            Keyword Clusters
+          </h1>
           <p className="text-muted-foreground">
             Group related keywords to identify content opportunities
           </p>

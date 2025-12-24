@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { Users, ExternalLink } from "lucide-react"
+import { ExternalLink, Users } from "lucide-react"
 import { Suspense, useState } from "react"
 
 import { CompetitorInput } from "@/components/Backlinks/CompetitorInput"
 import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
   TableBody,
@@ -13,18 +14,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { LinksService } from "@/services/links"
 import { ProjectsService } from "@/services/projects"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/links/competitive"
+  "/_layout/projects/$projectId/links/competitive",
 )({
   component: RouteComponent,
   head: () => ({
@@ -70,8 +65,7 @@ function CompetitiveContent() {
     enabled: competitors.length > 0 && !!domain,
   })
 
-  const isLoading =
-    activeTab === "overlap" ? isLoadingOverlap : isLoadingGap
+  const isLoading = activeTab === "overlap" ? isLoadingOverlap : isLoadingGap
   const hasCompetitors = competitors.length > 0
 
   return (
@@ -86,7 +80,10 @@ function CompetitiveContent() {
       </div>
 
       {hasCompetitors ? (
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
+        <Tabs
+          value={activeTab}
+          onValueChange={(v) => setActiveTab(v as typeof activeTab)}
+        >
           <TabsList>
             <TabsTrigger value="overlap">Overlap</TabsTrigger>
             <TabsTrigger value="gap">Link Gap</TabsTrigger>
@@ -138,7 +135,9 @@ function CompetitiveContent() {
                           <Badge variant="outline">{item.links_to_b}</Badge>
                         </TableCell>
                         <TableCell className="text-right">
-                          <Badge variant="secondary">{item.total_backlinks}</Badge>
+                          <Badge variant="secondary">
+                            {item.total_backlinks}
+                          </Badge>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -150,9 +149,7 @@ function CompetitiveContent() {
                 <div className="rounded-full bg-muted p-4 mb-4">
                   <Users className="h-8 w-8 text-muted-foreground" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">
-                  No overlap found
-                </h3>
+                <h3 className="text-lg font-semibold mb-2">No overlap found</h3>
                 <p className="text-muted-foreground">
                   No domains link to both your site and the selected competitors
                 </p>
@@ -200,7 +197,9 @@ function CompetitiveContent() {
                           </div>
                         </TableCell>
                         <TableCell className="text-right">
-                          <Badge variant="secondary">{item.backlinks_count}</Badge>
+                          <Badge variant="secondary">
+                            {item.backlinks_count}
+                          </Badge>
                         </TableCell>
                         <TableCell className="text-right">
                           <Badge variant="default">{item.dofollow_count}</Badge>
@@ -233,10 +232,12 @@ function CompetitiveContent() {
           <div className="rounded-full bg-muted p-4 mb-4">
             <Users className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h3 className="text-lg font-semibold mb-2">Add competitors to start</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            Add competitors to start
+          </h3>
           <p className="text-muted-foreground max-w-md">
-            Enter competitor domains above to analyze link overlap and discover link
-            building opportunities
+            Enter competitor domains above to analyze link overlap and discover
+            link building opportunities
           </p>
         </div>
       )}

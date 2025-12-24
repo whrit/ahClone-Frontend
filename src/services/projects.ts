@@ -1,14 +1,15 @@
 // Temporary ProjectsService - will be replaced by generated client
+
+import type { Message } from "@/client"
+import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import { OpenAPI } from "@/client/core/OpenAPI"
 import { request as __request } from "@/client/core/request"
-import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import type {
   ProjectCreate,
   ProjectPublic,
   ProjectsPublic,
   ProjectUpdate,
 } from "@/types/project"
-import type { Message } from "@/client"
 
 export interface ProjectsReadProjectsData {
   skip?: number
@@ -38,7 +39,7 @@ export class ProjectsService {
    * Retrieve projects.
    */
   public static readProjects(
-    data: ProjectsReadProjectsData = {}
+    data: ProjectsReadProjectsData = {},
   ): CancelablePromise<ProjectsPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -58,7 +59,7 @@ export class ProjectsService {
    * Create new project.
    */
   public static createProject(
-    data: ProjectsCreateProjectData
+    data: ProjectsCreateProjectData,
   ): CancelablePromise<ProjectPublic> {
     return __request(OpenAPI, {
       method: "POST",
@@ -76,7 +77,7 @@ export class ProjectsService {
    * Get project by ID.
    */
   public static readProject(
-    data: ProjectsReadProjectData
+    data: ProjectsReadProjectData,
   ): CancelablePromise<ProjectPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -95,7 +96,7 @@ export class ProjectsService {
    * Update a project.
    */
   public static updateProject(
-    data: ProjectsUpdateProjectData
+    data: ProjectsUpdateProjectData,
   ): CancelablePromise<ProjectPublic> {
     return __request(OpenAPI, {
       method: "PUT",
@@ -116,7 +117,7 @@ export class ProjectsService {
    * Delete a project.
    */
   public static deleteProject(
-    data: ProjectsDeleteProjectData
+    data: ProjectsDeleteProjectData,
   ): CancelablePromise<Message> {
     return __request(OpenAPI, {
       method: "DELETE",

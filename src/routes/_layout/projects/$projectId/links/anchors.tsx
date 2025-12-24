@@ -1,19 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { Type, ArrowUpDown } from "lucide-react"
+import { ArrowUpDown, Type } from "lucide-react"
 import { Suspense, useState } from "react"
 
 import { AnchorChart } from "@/components/Backlinks/AnchorChart"
 import { Badge } from "@/components/ui/badge"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import {
   Select,
@@ -22,11 +13,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { LinksService } from "@/services/links"
 import { ProjectsService } from "@/services/projects"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/links/anchors"
+  "/_layout/projects/$projectId/links/anchors",
 )({
   component: RouteComponent,
   head: () => ({
@@ -124,58 +124,56 @@ function AnchorsContent() {
       </div>
 
       {hasData ? (
-        <>
-          {viewMode === "chart" ? (
-            <div className="border rounded-lg p-6 bg-card">
-              <h3 className="text-lg font-semibold mb-4">Top Anchor Texts</h3>
-              <AnchorChart
-                data={anchors.data.map((anchor) => ({
-                  anchor_text: anchor.anchor_text,
-                  count: anchor.backlinks,
-                  percentage: (anchor.backlinks / anchors.total) * 100,
-                }))}
-                maxItems={20}
-              />
-            </div>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Anchor Text</TableHead>
-                  <TableHead className="text-right">Backlinks</TableHead>
-                  <TableHead className="text-right">Ref Domains</TableHead>
-                  <TableHead className="text-right">Percentage</TableHead>
+        viewMode === "chart" ? (
+          <div className="border rounded-lg p-6 bg-card">
+            <h3 className="text-lg font-semibold mb-4">Top Anchor Texts</h3>
+            <AnchorChart
+              data={anchors.data.map((anchor) => ({
+                anchor_text: anchor.anchor_text,
+                count: anchor.backlinks,
+                percentage: (anchor.backlinks / anchors.total) * 100,
+              }))}
+              maxItems={20}
+            />
+          </div>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Anchor Text</TableHead>
+                <TableHead className="text-right">Backlinks</TableHead>
+                <TableHead className="text-right">Ref Domains</TableHead>
+                <TableHead className="text-right">Percentage</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {anchors.data.map((anchor, idx) => (
+                <TableRow key={idx}>
+                  <TableCell>
+                    <span className="font-medium">
+                      {anchor.anchor_text || (
+                        <span className="text-muted-foreground italic">
+                          No anchor text
+                        </span>
+                      )}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Badge variant="secondary">{anchor.backlinks}</Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Badge variant="outline">{anchor.ref_domains}</Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <span className="text-sm text-muted-foreground">
+                      {((anchor.backlinks / anchors.total) * 100).toFixed(1)}%
+                    </span>
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {anchors.data.map((anchor, idx) => (
-                  <TableRow key={idx}>
-                    <TableCell>
-                      <span className="font-medium">
-                        {anchor.anchor_text || (
-                          <span className="text-muted-foreground italic">
-                            No anchor text
-                          </span>
-                        )}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant="secondary">{anchor.backlinks}</Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant="outline">{anchor.ref_domains}</Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className="text-sm text-muted-foreground">
-                        {((anchor.backlinks / anchors.total) * 100).toFixed(1)}%
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
-        </>
+              ))}
+            </TableBody>
+          </Table>
+        )
       ) : (
         <div className="flex flex-col items-center justify-center text-center py-12 border rounded-lg bg-muted/50">
           <div className="rounded-full bg-muted p-4 mb-4">

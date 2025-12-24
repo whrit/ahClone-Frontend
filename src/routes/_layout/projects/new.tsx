@@ -4,9 +4,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { ArrowLeft } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
-import type { ProjectCreate } from "@/types/project"
-import { ProjectsService } from "@/services/projects"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -25,9 +22,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { LoadingButton } from "@/components/ui/loading-button"
+import { Textarea } from "@/components/ui/textarea"
 import useCustomToast from "@/hooks/useCustomToast"
+import { ProjectsService } from "@/services/projects"
+import type { ProjectCreate } from "@/types/project"
 import { handleError } from "@/utils"
 
 const formSchema = z.object({
@@ -74,7 +73,10 @@ function NewProject() {
     onSuccess: (project) => {
       showSuccessToast("Project created successfully")
       form.reset()
-      navigate({ to: "/projects/$projectId", params: { projectId: project.id } })
+      navigate({
+        to: "/projects/$projectId",
+        params: { projectId: project.id },
+      })
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {
@@ -99,7 +101,9 @@ function NewProject() {
           <span className="sr-only">Back</span>
         </Button>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Create New Project</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            Create New Project
+          </h1>
           <p className="text-muted-foreground">
             Set up a new SEO tracking project
           </p>

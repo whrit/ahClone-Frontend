@@ -1,16 +1,15 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
+import { format } from "date-fns"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 import { Suspense } from "react"
-import { format } from "date-fns"
-
-import { SerpService } from "@/services/serp"
 import { PositionBadge } from "@/components/RankTracker/PositionBadge"
 import { PositionChange } from "@/components/RankTracker/PositionChange"
 import { RankChart } from "@/components/RankTracker/RankChart"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
 import { Card } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
   TableBody,
@@ -19,10 +18,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+import { SerpService } from "@/services/serp"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/rank-tracker/$keywordId"
+  "/_layout/projects/$projectId/rank-tracker/$keywordId",
 )({
   component: RouteComponent,
   head: () => ({
@@ -217,7 +216,8 @@ function KeywordDetailContent() {
               Captured {format(new Date(latestSnapshot.captured_at), "PPpp")}
               {latestSnapshot.total_results && (
                 <span className="ml-2">
-                  ({latestSnapshot.total_results.toLocaleString()} total results)
+                  ({latestSnapshot.total_results.toLocaleString()} total
+                  results)
                 </span>
               )}
             </div>
@@ -228,7 +228,10 @@ function KeywordDetailContent() {
                   className="border rounded-lg p-4 hover:bg-muted/50 transition-colors"
                 >
                   <div className="flex items-start gap-3">
-                    <PositionBadge position={result.position} className="mt-1" />
+                    <PositionBadge
+                      position={result.position}
+                      className="mt-1"
+                    />
                     <div className="flex-1 min-w-0">
                       <a
                         href={result.url}
@@ -239,7 +242,9 @@ function KeywordDetailContent() {
                         {result.title}
                       </a>
                       <div className="flex items-center gap-1 text-sm text-green-700 dark:text-green-500 mt-1">
-                        <span className="truncate">{result.displayed_url || result.url}</span>
+                        <span className="truncate">
+                          {result.displayed_url || result.url}
+                        </span>
                         <ExternalLink className="h-3 w-3 shrink-0" />
                       </div>
                       <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
@@ -253,8 +258,8 @@ function KeywordDetailContent() {
           </div>
         ) : (
           <div className="text-center py-8 text-muted-foreground">
-            No SERP snapshot available yet. Trigger a refresh to capture the current
-            search results.
+            No SERP snapshot available yet. Trigger a refresh to capture the
+            current search results.
           </div>
         )}
       </Card>

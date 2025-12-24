@@ -1,10 +1,10 @@
+import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import { OpenAPI } from "@/client/core/OpenAPI"
 import { request as __request } from "@/client/core/request"
-import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import type {
+  CsvImportResponse,
   TrafficPanelResponse,
   TrafficSourcesResponse,
-  CsvImportResponse,
 } from "@/types/traffic"
 
 export interface TrafficGetPanelData {
@@ -27,7 +27,7 @@ export class TrafficService {
    * Get multi-source traffic data for the specified period.
    */
   public static getPanel(
-    data: TrafficGetPanelData
+    data: TrafficGetPanelData,
   ): CancelablePromise<TrafficPanelResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -49,7 +49,7 @@ export class TrafficService {
    * Get available traffic data sources for the project.
    */
   public static getSources(
-    data: TrafficGetSourcesData
+    data: TrafficGetSourcesData,
   ): CancelablePromise<TrafficSourcesResponse> {
     return __request(OpenAPI, {
       method: "GET",
@@ -68,7 +68,7 @@ export class TrafficService {
    * Import traffic data from a CSV file.
    */
   public static importCsv(
-    data: TrafficImportCsvData
+    data: TrafficImportCsvData,
   ): CancelablePromise<CsvImportResponse> {
     const formData = new FormData()
     formData.append("file", data.file)

@@ -1,14 +1,14 @@
+import { format } from "date-fns"
 import {
-  LineChart,
+  CartesianGrid,
+  Legend,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  CartesianGrid,
 } from "recharts"
-import { format } from "date-fns"
 import type { TrafficDataPoint } from "@/types/traffic"
 
 interface TrafficChartProps {
@@ -70,7 +70,9 @@ export function TrafficChart({ data, className }: TrafficChartProps) {
             }}
             labelStyle={{ color: "hsl(var(--foreground))" }}
             formatter={(value) =>
-              value !== null && value !== undefined ? Number(value).toLocaleString() : "N/A"
+              value !== null && value !== undefined
+                ? Number(value).toLocaleString()
+                : "N/A"
             }
           />
           <Legend />

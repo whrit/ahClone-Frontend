@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from "date-fns"
+import { ExternalLink } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   Table,
@@ -7,8 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { formatDistanceToNow } from "date-fns"
-import { ExternalLink } from "lucide-react"
 
 interface RefDomain {
   ref_domain: string
@@ -25,7 +25,11 @@ interface RefDomainTableProps {
   onDomainClick?: (domain: string) => void
 }
 
-export function RefDomainTable({ data, projectId, onDomainClick }: RefDomainTableProps) {
+export function RefDomainTable({
+  data,
+  projectId,
+  onDomainClick,
+}: RefDomainTableProps) {
   return (
     <Table>
       <TableHeader>

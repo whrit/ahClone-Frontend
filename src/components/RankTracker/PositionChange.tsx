@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { Minus, TrendingDown, TrendingUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface PositionChangeProps {
@@ -9,7 +9,12 @@ interface PositionChangeProps {
 export function PositionChange({ change, className }: PositionChangeProps) {
   if (change === null || change === 0) {
     return (
-      <span className={cn("flex items-center gap-1 text-muted-foreground", className)}>
+      <span
+        className={cn(
+          "flex items-center gap-1 text-muted-foreground",
+          className,
+        )}
+      >
         <Minus className="h-4 w-4" />
         <span className="text-sm">--</span>
       </span>
@@ -26,8 +31,10 @@ export function PositionChange({ change, className }: PositionChangeProps) {
     <span
       className={cn(
         "flex items-center gap-1 text-sm font-medium",
-        isImprovement ? "text-green-600 dark:text-green-500" : "text-red-600 dark:text-red-500",
-        className
+        isImprovement
+          ? "text-green-600 dark:text-green-500"
+          : "text-red-600 dark:text-red-500",
+        className,
       )}
     >
       {isImprovement ? (

@@ -2,10 +2,9 @@ import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import { Search } from "lucide-react"
 import { Suspense, useState } from "react"
-
-import { GSCService } from "@/services/gsc"
 import { GSCConnectCard } from "@/components/Keywords/GSCConnectCard"
 import { QueryTable } from "@/components/Keywords/QueryTable"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -14,11 +13,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Input } from "@/components/ui/input"
+import { GSCService } from "@/services/gsc"
 
-export const Route = createFileRoute(
-  "/_layout/projects/$projectId/keywords/"
-)({
+export const Route = createFileRoute("/_layout/projects/$projectId/keywords/")({
   component: RouteComponent,
   head: () => ({
     meta: [
@@ -32,7 +29,9 @@ export const Route = createFileRoute(
 function KeywordsContent() {
   const { projectId } = Route.useParams()
   const [period, setPeriod] = useState<"7" | "28" | "90">("28")
-  const [sortBy, setSortBy] = useState<"clicks" | "impressions" | "ctr" | "position">("clicks")
+  const [sortBy, setSortBy] = useState<
+    "clicks" | "impressions" | "ctr" | "position"
+  >("clicks")
   const [searchQuery, setSearchQuery] = useState("")
 
   const { data: integrationStatus } = useQuery({
@@ -48,7 +47,7 @@ function KeywordsContent() {
 
   const endDate = new Date()
   const startDate = new Date()
-  startDate.setDate(startDate.getDate() - Number.parseInt(period))
+  startDate.setDate(startDate.getDate() - Number.parseInt(period, 10))
 
   const { data: queries, isLoading } = useQuery({
     queryKey: ["gsc-queries", projectId, period, sortBy],
@@ -85,7 +84,7 @@ function KeywordsContent() {
   }
 
   const filteredQueries = queries?.data.filter((query) =>
-    query.query.toLowerCase().includes(searchQuery.toLowerCase())
+    query.query.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -101,7 +100,10 @@ function KeywordsContent() {
           />
         </div>
         <div className="flex gap-2">
-          <Select value={period} onValueChange={(v) => setPeriod(v as "7" | "28" | "90")}>
+          <Select
+            value={period}
+            onValueChange={(v) => setPeriod(v as "7" | "28" | "90")}
+          >
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>

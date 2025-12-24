@@ -1,8 +1,6 @@
-import { EllipsisVertical, Settings, Trash2 } from "lucide-react"
 import { Link } from "@tanstack/react-router"
+import { EllipsisVertical, Settings, Trash2 } from "lucide-react"
 import { useState } from "react"
-
-import type { ProjectPublic } from "@/types/project"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -10,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import type { ProjectPublic } from "@/types/project"
 import { DeleteProject } from "./DeleteProject"
 
 interface ProjectActionsMenuProps {

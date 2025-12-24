@@ -1,7 +1,7 @@
-import { AuditStatus } from "@/types/audit"
-import { Badge } from "@/components/ui/badge"
 import { Loader2 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { AuditStatus } from "@/types/audit"
 
 interface AuditStatusBadgeProps {
   status: AuditStatus
@@ -19,7 +19,11 @@ export function AuditStatusBadge({ status, className }: AuditStatusBadgeProps) {
 
   const statusConfig: Record<
     AuditStatus,
-    { label: string; variant: "default" | "secondary" | "destructive" | "outline"; color?: string }
+    {
+      label: string
+      variant: "default" | "secondary" | "destructive" | "outline"
+      color?: string
+    }
   > = {
     [AuditStatus.QUEUED]: {
       label: "Queued",

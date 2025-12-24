@@ -10,8 +10,7 @@ import {
   Settings,
   TrendingUp,
 } from "lucide-react"
-
-import { ProjectsService } from "@/services/projects"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -21,8 +20,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
+import { ProjectsService } from "@/services/projects"
 
 export const Route = createFileRoute("/_layout/projects/$projectId/")({
   component: ProjectOverview,
@@ -135,12 +134,11 @@ function ProjectOverview() {
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold tracking-tight">{project.name}</h1>
+            <h1 className="text-2xl font-bold tracking-tight">
+              {project.name}
+            </h1>
             <Button variant="ghost" size="icon" asChild>
-              <Link
-                to="/projects/$projectId/settings"
-                params={{ projectId }}
-              >
+              <Link to="/projects/$projectId/settings" params={{ projectId }}>
                 <Settings className="h-4 w-4" />
                 <span className="sr-only">Settings</span>
               </Link>

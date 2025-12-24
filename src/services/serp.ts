@@ -1,6 +1,6 @@
+import type { CancelablePromise } from "@/client/core/CancelablePromise"
 import { OpenAPI } from "@/client/core/OpenAPI"
 import { request as __request } from "@/client/core/request"
-import type { CancelablePromise } from "@/client/core/CancelablePromise"
 
 // Types based on backend models
 export interface KeywordTarget {
@@ -120,7 +120,7 @@ export class SerpService {
    * List all tracked keywords for a project.
    */
   public static listKeywordTargets(
-    data: ListKeywordTargetsData
+    data: ListKeywordTargetsData,
   ): CancelablePromise<KeywordTargetsPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -143,7 +143,7 @@ export class SerpService {
    * Get a single tracked keyword by ID.
    */
   public static getKeywordTarget(
-    data: GetKeywordTargetData
+    data: GetKeywordTargetData,
   ): CancelablePromise<KeywordTarget> {
     return __request(OpenAPI, {
       method: "GET",
@@ -163,7 +163,7 @@ export class SerpService {
    * Add a new keyword to track.
    */
   public static createKeywordTarget(
-    data: CreateKeywordTargetData
+    data: CreateKeywordTargetData,
   ): CancelablePromise<KeywordTarget> {
     return __request(OpenAPI, {
       method: "POST",
@@ -183,7 +183,7 @@ export class SerpService {
    * Trigger a manual refresh of keyword position.
    */
   public static refreshKeyword(
-    data: RefreshKeywordData
+    data: RefreshKeywordData,
   ): CancelablePromise<KeywordTarget> {
     return __request(OpenAPI, {
       method: "POST",
@@ -203,7 +203,7 @@ export class SerpService {
    * Get historical rank observations for a keyword.
    */
   public static getRankHistory(
-    data: GetRankHistoryData
+    data: GetRankHistoryData,
   ): CancelablePromise<RankObservationsPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -227,7 +227,7 @@ export class SerpService {
    * Get SERP snapshots for a keyword.
    */
   public static getSerpSnapshots(
-    data: GetSerpSnapshotsData
+    data: GetSerpSnapshotsData,
   ): CancelablePromise<SerpSnapshotsPublic> {
     return __request(OpenAPI, {
       method: "GET",
@@ -251,7 +251,7 @@ export class SerpService {
    * Get the most recent SERP snapshot for a keyword.
    */
   public static getLatestSnapshot(
-    data: GetLatestSnapshotData
+    data: GetLatestSnapshotData,
   ): CancelablePromise<SerpSnapshot> {
     return __request(OpenAPI, {
       method: "GET",

@@ -1,10 +1,16 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { Search, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { Minus, Search, TrendingDown, TrendingUp } from "lucide-react"
 import { Suspense, useState } from "react"
-
-import { AdsService } from "@/services/ads"
-import { GSCService } from "@/services/gsc"
+import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -14,13 +20,6 @@ import {
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
   Table,
   TableBody,
   TableCell,
@@ -28,11 +27,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
+import { AdsService } from "@/services/ads"
+import { GSCService } from "@/services/gsc"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/ppc/overlap"
+  "/_layout/projects/$projectId/ppc/overlap",
 )({
   component: RouteComponent,
   head: () => ({
@@ -108,7 +107,9 @@ function getOpportunityIcon(score: number) {
   return <TrendingDown className="h-4 w-4 text-red-600" />
 }
 
-function getOpportunityBadgeVariant(score: number): "default" | "secondary" | "destructive" {
+function getOpportunityBadgeVariant(
+  score: number,
+): "default" | "secondary" | "destructive" {
   if (score >= 75) return "default"
   if (score >= 50) return "secondary"
   return "destructive"
@@ -120,14 +121,15 @@ function AdsConnectCard() {
       <CardHeader>
         <CardTitle>Connect Google Ads</CardTitle>
         <CardDescription>
-          Connect your Google Ads account to analyze keyword overlap between your paid and
-          organic search campaigns.
+          Connect your Google Ads account to analyze keyword overlap between
+          your paid and organic search campaigns.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          This feature requires both Google Search Console and Google Ads to be connected.
-          Please connect your Google Ads account from the PPC dashboard.
+          This feature requires both Google Search Console and Google Ads to be
+          connected. Please connect your Google Ads account from the PPC
+          dashboard.
         </p>
       </CardContent>
     </Card>
@@ -136,7 +138,9 @@ function AdsConnectCard() {
 
 function OverlapContent() {
   const { projectId } = Route.useParams()
-  const [overlapFilter, setOverlapFilter] = useState<"all" | "both" | "paid_only" | "organic_only">("all")
+  const [overlapFilter, setOverlapFilter] = useState<
+    "all" | "both" | "paid_only" | "organic_only"
+  >("all")
   const [searchQuery, setSearchQuery] = useState("")
 
   const { data: integrationStatus } = useQuery({
@@ -154,7 +158,9 @@ function OverlapContent() {
           limit: 100,
         },
       }),
-    enabled: integrationStatus?.ads_connected === true && integrationStatus?.gsc_connected === true,
+    enabled:
+      integrationStatus?.ads_connected === true &&
+      integrationStatus?.gsc_connected === true,
   })
 
   if (!integrationStatus?.ads_connected || !integrationStatus?.gsc_connected) {
@@ -176,7 +182,7 @@ function OverlapContent() {
   }
 
   const filteredKeywords = overlapData?.data.filter((keyword) =>
-    keyword.keyword.toLowerCase().includes(searchQuery.toLowerCase())
+    keyword.keyword.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -192,7 +198,10 @@ function OverlapContent() {
           />
         </div>
         <div className="flex gap-2">
-          <Select value={overlapFilter} onValueChange={(v) => setOverlapFilter(v as typeof overlapFilter)}>
+          <Select
+            value={overlapFilter}
+            onValueChange={(v) => setOverlapFilter(v as typeof overlapFilter)}
+          >
             <SelectTrigger className="w-44">
               <SelectValue />
             </SelectTrigger>
@@ -252,7 +261,9 @@ function OverlapContent() {
                     <TableHead className="text-right">Paid Clicks</TableHead>
                     <TableHead className="text-right">Paid Cost</TableHead>
                     <TableHead className="text-right">Organic Clicks</TableHead>
-                    <TableHead className="text-right">Organic Position</TableHead>
+                    <TableHead className="text-right">
+                      Organic Position
+                    </TableHead>
                     <TableHead className="text-right">Opportunity</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -266,21 +277,33 @@ function OverlapContent() {
                         {getOverlapBadge(keyword.overlap_type)}
                       </TableCell>
                       <TableCell className="text-right">
-                        {keyword.paid_clicks > 0 ? formatNumber(keyword.paid_clicks) : "-"}
+                        {keyword.paid_clicks > 0
+                          ? formatNumber(keyword.paid_clicks)
+                          : "-"}
                       </TableCell>
                       <TableCell className="text-right">
-                        {keyword.paid_cost_micros > 0 ? formatCurrency(keyword.paid_cost_micros) : "-"}
+                        {keyword.paid_cost_micros > 0
+                          ? formatCurrency(keyword.paid_cost_micros)
+                          : "-"}
                       </TableCell>
                       <TableCell className="text-right">
-                        {keyword.organic_clicks > 0 ? formatNumber(keyword.organic_clicks) : "-"}
+                        {keyword.organic_clicks > 0
+                          ? formatNumber(keyword.organic_clicks)
+                          : "-"}
                       </TableCell>
                       <TableCell className="text-right">
-                        {keyword.organic_position > 0 ? formatPosition(keyword.organic_position) : "-"}
+                        {keyword.organic_position > 0
+                          ? formatPosition(keyword.organic_position)
+                          : "-"}
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           {getOpportunityIcon(keyword.opportunity_score)}
-                          <Badge variant={getOpportunityBadgeVariant(keyword.opportunity_score)}>
+                          <Badge
+                            variant={getOpportunityBadgeVariant(
+                              keyword.opportunity_score,
+                            )}
+                          >
                             {keyword.opportunity_score.toFixed(0)}
                           </Badge>
                         </div>
@@ -314,9 +337,12 @@ function RouteComponent() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">SEO + PPC Overlap</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            SEO + PPC Overlap
+          </h1>
           <p className="text-muted-foreground">
-            Analyze keyword overlap between paid and organic search to optimize your strategy
+            Analyze keyword overlap between paid and organic search to optimize
+            your strategy
           </p>
         </div>
       </div>

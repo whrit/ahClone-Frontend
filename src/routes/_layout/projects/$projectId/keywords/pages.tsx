@@ -3,11 +3,9 @@ import { createFileRoute } from "@tanstack/react-router"
 import type { ColumnDef } from "@tanstack/react-table"
 import { FileText } from "lucide-react"
 import { Suspense, useState } from "react"
-
-import { GSCService } from "@/services/gsc"
-import type { GSCPageRow } from "@/types/gsc"
-import { GSCConnectCard } from "@/components/Keywords/GSCConnectCard"
 import { DataTable } from "@/components/Common/DataTable"
+import { GSCConnectCard } from "@/components/Keywords/GSCConnectCard"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -16,10 +14,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Input } from "@/components/ui/input"
+import { GSCService } from "@/services/gsc"
+import type { GSCPageRow } from "@/types/gsc"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/keywords/pages"
+  "/_layout/projects/$projectId/keywords/pages",
 )({
   component: RouteComponent,
   head: () => ({
@@ -92,7 +91,9 @@ function createPageColumns(): ColumnDef<GSCPageRow>[] {
 function PagesContent() {
   const { projectId } = Route.useParams()
   const [period, setPeriod] = useState<"7" | "28" | "90">("28")
-  const [sortBy, setSortBy] = useState<"clicks" | "impressions" | "ctr" | "position">("clicks")
+  const [sortBy, setSortBy] = useState<
+    "clicks" | "impressions" | "ctr" | "position"
+  >("clicks")
   const [searchQuery, setSearchQuery] = useState("")
 
   const { data: integrationStatus } = useQuery({
@@ -108,7 +109,7 @@ function PagesContent() {
 
   const endDate = new Date()
   const startDate = new Date()
-  startDate.setDate(startDate.getDate() - Number.parseInt(period))
+  startDate.setDate(startDate.getDate() - Number.parseInt(period, 10))
 
   const { data: pages, isLoading } = useQuery({
     queryKey: ["gsc-pages", projectId, period, sortBy],
@@ -145,7 +146,7 @@ function PagesContent() {
   }
 
   const filteredPages = pages?.data.filter((page) =>
-    page.page.toLowerCase().includes(searchQuery.toLowerCase())
+    page.page.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -159,7 +160,10 @@ function PagesContent() {
           />
         </div>
         <div className="flex gap-2">
-          <Select value={period} onValueChange={(v) => setPeriod(v as "7" | "28" | "90")}>
+          <Select
+            value={period}
+            onValueChange={(v) => setPeriod(v as "7" | "28" | "90")}
+          >
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>

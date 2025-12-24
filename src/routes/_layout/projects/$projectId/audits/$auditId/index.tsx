@@ -8,13 +8,11 @@ import {
   FileText,
 } from "lucide-react"
 import { Suspense } from "react"
-
-import { AuditsService } from "@/services/audits"
 import { AuditStatusBadge } from "@/components/Audits/AuditStatusBadge"
 import { IssueSeverityBadge } from "@/components/Audits/IssueSeverityBadge"
-import { DataTable } from "@/components/Common/DataTable"
 import { issueColumns } from "@/components/Audits/issueColumns"
 import { pageColumns } from "@/components/Audits/pageColumns"
+import { DataTable } from "@/components/Common/DataTable"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -25,10 +23,11 @@ import {
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AuditsService } from "@/services/audits"
 import { AuditStatus, IssueSeverity } from "@/types/audit"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/audits/$auditId/"
+  "/_layout/projects/$projectId/audits/$auditId/",
 )({
   component: AuditDetail,
 })
@@ -153,9 +152,7 @@ function AuditDetailContent() {
                 <span className="sr-only">Back to audits</span>
               </Link>
             </Button>
-            <h1 className="text-2xl font-bold tracking-tight">
-              Audit Results
-            </h1>
+            <h1 className="text-2xl font-bold tracking-tight">Audit Results</h1>
             <AuditStatusBadge status={audit.status} />
           </div>
           <p className="text-sm text-muted-foreground ml-12">

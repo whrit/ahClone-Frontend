@@ -1,13 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
-import { RefreshCw, ExternalLink } from "lucide-react"
-import { Suspense } from "react"
 import { formatDistanceToNow } from "date-fns"
-
-import { SerpService } from "@/services/serp"
+import { ExternalLink, RefreshCw } from "lucide-react"
+import { Suspense } from "react"
+import { toast } from "sonner"
+import { AddKeywordDialog } from "@/components/RankTracker/AddKeywordDialog"
 import { PositionBadge } from "@/components/RankTracker/PositionBadge"
 import { PositionChange } from "@/components/RankTracker/PositionChange"
-import { AddKeywordDialog } from "@/components/RankTracker/AddKeywordDialog"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
@@ -18,10 +17,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { toast } from "sonner"
+import { SerpService } from "@/services/serp"
 
 export const Route = createFileRoute(
-  "/_layout/projects/$projectId/rank-tracker/"
+  "/_layout/projects/$projectId/rank-tracker/",
 )({
   component: RouteComponent,
   head: () => ({
@@ -98,7 +97,7 @@ function RankTrackerContent() {
           SerpService.refreshKeyword({
             projectId,
             keywordId: kw.id,
-          })
+          }),
         )
 
       await Promise.allSettled(refreshPromises)
@@ -138,7 +137,10 @@ function RankTrackerContent() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <AddKeywordDialog projectId={projectId} onAddKeyword={handleAddKeyword} />
+          <AddKeywordDialog
+            projectId={projectId}
+            onAddKeyword={handleAddKeyword}
+          />
           <Button
             variant="outline"
             onClick={() => refreshAllMutation.mutate()}
@@ -192,7 +194,8 @@ function RankTrackerContent() {
                   <PositionChange change={keyword.position_change} />
                 </TableCell>
                 <TableCell>
-                  {keyword.latest_position !== null && keyword.latest_position > 0 ? (
+                  {keyword.latest_position !== null &&
+                  keyword.latest_position > 0 ? (
                     <a
                       href={`https://www.google.com/search?q=${encodeURIComponent(keyword.keyword)}`}
                       target="_blank"
@@ -200,9 +203,11 @@ function RankTrackerContent() {
                       className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors max-w-xs truncate"
                     >
                       <span className="truncate">
-                        {new URL(
-                          `https://www.google.com/search?q=${keyword.keyword}`
-                        ).hostname}
+                        {
+                          new URL(
+                            `https://www.google.com/search?q=${keyword.keyword}`,
+                          ).hostname
+                        }
                       </span>
                       <ExternalLink className="h-3 w-3 shrink-0" />
                     </a>
@@ -253,11 +258,17 @@ function RankTrackerContent() {
           <div className="rounded-full bg-muted p-4 mb-4">
             <RefreshCw className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h3 className="text-lg font-semibold mb-2">No keywords tracked yet</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            No keywords tracked yet
+          </h3>
           <p className="text-muted-foreground mb-4 max-w-sm">
-            Start tracking keyword positions by adding your first keyword to monitor.
+            Start tracking keyword positions by adding your first keyword to
+            monitor.
           </p>
-          <AddKeywordDialog projectId={projectId} onAddKeyword={handleAddKeyword} />
+          <AddKeywordDialog
+            projectId={projectId}
+            onAddKeyword={handleAddKeyword}
+          />
         </div>
       )}
     </div>

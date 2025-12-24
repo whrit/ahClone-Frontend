@@ -1,18 +1,16 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { Search, Globe } from "lucide-react"
+import { Globe, Search } from "lucide-react"
 import { Suspense, useState } from "react"
 
 import { RefDomainTable } from "@/components/Backlinks/RefDomainTable"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Button } from "@/components/ui/button"
 import { LinksService } from "@/services/links"
 import { ProjectsService } from "@/services/projects"
 
-export const Route = createFileRoute(
-  "/_layout/projects/$projectId/links/"
-)({
+export const Route = createFileRoute("/_layout/projects/$projectId/links/")({
   component: RouteComponent,
   head: () => ({
     meta: [
@@ -59,7 +57,7 @@ function RefDomainsContent() {
   }
 
   const filteredDomains = refDomains?.data.filter((domain) =>
-    domain.ref_domain.toLowerCase().includes(searchQuery.toLowerCase())
+    domain.ref_domain.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   const totalPages = Math.ceil((refDomains?.total || 0) / limit)
@@ -79,7 +77,8 @@ function RefDomainsContent() {
         </div>
         {refDomains?.total !== undefined && (
           <div className="flex items-center text-sm text-muted-foreground">
-            {refDomains.total} referring domain{refDomains.total !== 1 ? "s" : ""}
+            {refDomains.total} referring domain
+            {refDomains.total !== 1 ? "s" : ""}
           </div>
         )}
       </div>
@@ -115,7 +114,9 @@ function RefDomainsContent() {
           <div className="rounded-full bg-muted p-4 mb-4">
             <Globe className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h3 className="text-lg font-semibold mb-2">No referring domains found</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            No referring domains found
+          </h3>
           <p className="text-muted-foreground">
             {searchQuery
               ? "Try adjusting your search filter"
@@ -132,7 +133,9 @@ function RouteComponent() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Referring Domains</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            Referring Domains
+          </h1>
           <p className="text-muted-foreground">
             Domains linking to your site with backlink statistics
           </p>
