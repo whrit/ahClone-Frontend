@@ -23,9 +23,13 @@ import { Route as LayoutProjectsNewRouteImport } from './routes/_layout/projects
 import { Route as LayoutProjectsProjectIdIndexRouteImport } from './routes/_layout/projects/$projectId/index'
 import { Route as LayoutProjectsProjectIdSettingsRouteImport } from './routes/_layout/projects/$projectId/settings'
 import { Route as LayoutProjectsProjectIdRankTrackerIndexRouteImport } from './routes/_layout/projects/$projectId/rank-tracker/index'
+import { Route as LayoutProjectsProjectIdLinksIndexRouteImport } from './routes/_layout/projects/$projectId/links/index'
 import { Route as LayoutProjectsProjectIdKeywordsIndexRouteImport } from './routes/_layout/projects/$projectId/keywords/index'
 import { Route as LayoutProjectsProjectIdAuditsIndexRouteImport } from './routes/_layout/projects/$projectId/audits/index'
 import { Route as LayoutProjectsProjectIdRankTrackerKeywordIdRouteImport } from './routes/_layout/projects/$projectId/rank-tracker/$keywordId'
+import { Route as LayoutProjectsProjectIdLinksCompetitiveRouteImport } from './routes/_layout/projects/$projectId/links/competitive'
+import { Route as LayoutProjectsProjectIdLinksBacklinksRouteImport } from './routes/_layout/projects/$projectId/links/backlinks'
+import { Route as LayoutProjectsProjectIdLinksAnchorsRouteImport } from './routes/_layout/projects/$projectId/links/anchors'
 import { Route as LayoutProjectsProjectIdKeywordsPagesRouteImport } from './routes/_layout/projects/$projectId/keywords/pages'
 import { Route as LayoutProjectsProjectIdKeywordsOpportunitiesRouteImport } from './routes/_layout/projects/$projectId/keywords/opportunities'
 import { Route as LayoutProjectsProjectIdKeywordsClustersRouteImport } from './routes/_layout/projects/$projectId/keywords/clusters'
@@ -105,6 +109,12 @@ const LayoutProjectsProjectIdRankTrackerIndexRoute =
     path: '/projects/$projectId/rank-tracker/',
     getParentRoute: () => LayoutRoute,
   } as any)
+const LayoutProjectsProjectIdLinksIndexRoute =
+  LayoutProjectsProjectIdLinksIndexRouteImport.update({
+    id: '/projects/$projectId/links/',
+    path: '/projects/$projectId/links/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 const LayoutProjectsProjectIdKeywordsIndexRoute =
   LayoutProjectsProjectIdKeywordsIndexRouteImport.update({
     id: '/projects/$projectId/keywords/',
@@ -121,6 +131,24 @@ const LayoutProjectsProjectIdRankTrackerKeywordIdRoute =
   LayoutProjectsProjectIdRankTrackerKeywordIdRouteImport.update({
     id: '/projects/$projectId/rank-tracker/$keywordId',
     path: '/projects/$projectId/rank-tracker/$keywordId',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdLinksCompetitiveRoute =
+  LayoutProjectsProjectIdLinksCompetitiveRouteImport.update({
+    id: '/projects/$projectId/links/competitive',
+    path: '/projects/$projectId/links/competitive',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdLinksBacklinksRoute =
+  LayoutProjectsProjectIdLinksBacklinksRouteImport.update({
+    id: '/projects/$projectId/links/backlinks',
+    path: '/projects/$projectId/links/backlinks',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdLinksAnchorsRoute =
+  LayoutProjectsProjectIdLinksAnchorsRouteImport.update({
+    id: '/projects/$projectId/links/anchors',
+    path: '/projects/$projectId/links/anchors',
     getParentRoute: () => LayoutRoute,
   } as any)
 const LayoutProjectsProjectIdKeywordsPagesRoute =
@@ -176,9 +204,13 @@ export interface FileRoutesByFullPath {
   '/projects/$projectId/keywords/clusters': typeof LayoutProjectsProjectIdKeywordsClustersRoute
   '/projects/$projectId/keywords/opportunities': typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
   '/projects/$projectId/keywords/pages': typeof LayoutProjectsProjectIdKeywordsPagesRoute
+  '/projects/$projectId/links/anchors': typeof LayoutProjectsProjectIdLinksAnchorsRoute
+  '/projects/$projectId/links/backlinks': typeof LayoutProjectsProjectIdLinksBacklinksRoute
+  '/projects/$projectId/links/competitive': typeof LayoutProjectsProjectIdLinksCompetitiveRoute
   '/projects/$projectId/rank-tracker/$keywordId': typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
   '/projects/$projectId/keywords': typeof LayoutProjectsProjectIdKeywordsIndexRoute
+  '/projects/$projectId/links': typeof LayoutProjectsProjectIdLinksIndexRoute
   '/projects/$projectId/rank-tracker': typeof LayoutProjectsProjectIdRankTrackerIndexRoute
   '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
@@ -200,9 +232,13 @@ export interface FileRoutesByTo {
   '/projects/$projectId/keywords/clusters': typeof LayoutProjectsProjectIdKeywordsClustersRoute
   '/projects/$projectId/keywords/opportunities': typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
   '/projects/$projectId/keywords/pages': typeof LayoutProjectsProjectIdKeywordsPagesRoute
+  '/projects/$projectId/links/anchors': typeof LayoutProjectsProjectIdLinksAnchorsRoute
+  '/projects/$projectId/links/backlinks': typeof LayoutProjectsProjectIdLinksBacklinksRoute
+  '/projects/$projectId/links/competitive': typeof LayoutProjectsProjectIdLinksCompetitiveRoute
   '/projects/$projectId/rank-tracker/$keywordId': typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
   '/projects/$projectId/keywords': typeof LayoutProjectsProjectIdKeywordsIndexRoute
+  '/projects/$projectId/links': typeof LayoutProjectsProjectIdLinksIndexRoute
   '/projects/$projectId/rank-tracker': typeof LayoutProjectsProjectIdRankTrackerIndexRoute
   '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
@@ -226,9 +262,13 @@ export interface FileRoutesById {
   '/_layout/projects/$projectId/keywords/clusters': typeof LayoutProjectsProjectIdKeywordsClustersRoute
   '/_layout/projects/$projectId/keywords/opportunities': typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
   '/_layout/projects/$projectId/keywords/pages': typeof LayoutProjectsProjectIdKeywordsPagesRoute
+  '/_layout/projects/$projectId/links/anchors': typeof LayoutProjectsProjectIdLinksAnchorsRoute
+  '/_layout/projects/$projectId/links/backlinks': typeof LayoutProjectsProjectIdLinksBacklinksRoute
+  '/_layout/projects/$projectId/links/competitive': typeof LayoutProjectsProjectIdLinksCompetitiveRoute
   '/_layout/projects/$projectId/rank-tracker/$keywordId': typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   '/_layout/projects/$projectId/audits/': typeof LayoutProjectsProjectIdAuditsIndexRoute
   '/_layout/projects/$projectId/keywords/': typeof LayoutProjectsProjectIdKeywordsIndexRoute
+  '/_layout/projects/$projectId/links/': typeof LayoutProjectsProjectIdLinksIndexRoute
   '/_layout/projects/$projectId/rank-tracker/': typeof LayoutProjectsProjectIdRankTrackerIndexRoute
   '/_layout/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/_layout/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
@@ -252,9 +292,13 @@ export interface FileRouteTypes {
     | '/projects/$projectId/keywords/clusters'
     | '/projects/$projectId/keywords/opportunities'
     | '/projects/$projectId/keywords/pages'
+    | '/projects/$projectId/links/anchors'
+    | '/projects/$projectId/links/backlinks'
+    | '/projects/$projectId/links/competitive'
     | '/projects/$projectId/rank-tracker/$keywordId'
     | '/projects/$projectId/audits'
     | '/projects/$projectId/keywords'
+    | '/projects/$projectId/links'
     | '/projects/$projectId/rank-tracker'
     | '/projects/$projectId/audits/$auditId/issues'
     | '/projects/$projectId/audits/$auditId/pages'
@@ -276,9 +320,13 @@ export interface FileRouteTypes {
     | '/projects/$projectId/keywords/clusters'
     | '/projects/$projectId/keywords/opportunities'
     | '/projects/$projectId/keywords/pages'
+    | '/projects/$projectId/links/anchors'
+    | '/projects/$projectId/links/backlinks'
+    | '/projects/$projectId/links/competitive'
     | '/projects/$projectId/rank-tracker/$keywordId'
     | '/projects/$projectId/audits'
     | '/projects/$projectId/keywords'
+    | '/projects/$projectId/links'
     | '/projects/$projectId/rank-tracker'
     | '/projects/$projectId/audits/$auditId/issues'
     | '/projects/$projectId/audits/$auditId/pages'
@@ -301,9 +349,13 @@ export interface FileRouteTypes {
     | '/_layout/projects/$projectId/keywords/clusters'
     | '/_layout/projects/$projectId/keywords/opportunities'
     | '/_layout/projects/$projectId/keywords/pages'
+    | '/_layout/projects/$projectId/links/anchors'
+    | '/_layout/projects/$projectId/links/backlinks'
+    | '/_layout/projects/$projectId/links/competitive'
     | '/_layout/projects/$projectId/rank-tracker/$keywordId'
     | '/_layout/projects/$projectId/audits/'
     | '/_layout/projects/$projectId/keywords/'
+    | '/_layout/projects/$projectId/links/'
     | '/_layout/projects/$projectId/rank-tracker/'
     | '/_layout/projects/$projectId/audits/$auditId/issues'
     | '/_layout/projects/$projectId/audits/$auditId/pages'
@@ -418,6 +470,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProjectsProjectIdRankTrackerIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/projects/$projectId/links/': {
+      id: '/_layout/projects/$projectId/links/'
+      path: '/projects/$projectId/links'
+      fullPath: '/projects/$projectId/links'
+      preLoaderRoute: typeof LayoutProjectsProjectIdLinksIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/projects/$projectId/keywords/': {
       id: '/_layout/projects/$projectId/keywords/'
       path: '/projects/$projectId/keywords'
@@ -437,6 +496,27 @@ declare module '@tanstack/react-router' {
       path: '/projects/$projectId/rank-tracker/$keywordId'
       fullPath: '/projects/$projectId/rank-tracker/$keywordId'
       preLoaderRoute: typeof LayoutProjectsProjectIdRankTrackerKeywordIdRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/links/competitive': {
+      id: '/_layout/projects/$projectId/links/competitive'
+      path: '/projects/$projectId/links/competitive'
+      fullPath: '/projects/$projectId/links/competitive'
+      preLoaderRoute: typeof LayoutProjectsProjectIdLinksCompetitiveRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/links/backlinks': {
+      id: '/_layout/projects/$projectId/links/backlinks'
+      path: '/projects/$projectId/links/backlinks'
+      fullPath: '/projects/$projectId/links/backlinks'
+      preLoaderRoute: typeof LayoutProjectsProjectIdLinksBacklinksRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/links/anchors': {
+      id: '/_layout/projects/$projectId/links/anchors'
+      path: '/projects/$projectId/links/anchors'
+      fullPath: '/projects/$projectId/links/anchors'
+      preLoaderRoute: typeof LayoutProjectsProjectIdLinksAnchorsRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/projects/$projectId/keywords/pages': {
@@ -496,9 +576,13 @@ interface LayoutRouteChildren {
   LayoutProjectsProjectIdKeywordsClustersRoute: typeof LayoutProjectsProjectIdKeywordsClustersRoute
   LayoutProjectsProjectIdKeywordsOpportunitiesRoute: typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
   LayoutProjectsProjectIdKeywordsPagesRoute: typeof LayoutProjectsProjectIdKeywordsPagesRoute
+  LayoutProjectsProjectIdLinksAnchorsRoute: typeof LayoutProjectsProjectIdLinksAnchorsRoute
+  LayoutProjectsProjectIdLinksBacklinksRoute: typeof LayoutProjectsProjectIdLinksBacklinksRoute
+  LayoutProjectsProjectIdLinksCompetitiveRoute: typeof LayoutProjectsProjectIdLinksCompetitiveRoute
   LayoutProjectsProjectIdRankTrackerKeywordIdRoute: typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   LayoutProjectsProjectIdAuditsIndexRoute: typeof LayoutProjectsProjectIdAuditsIndexRoute
   LayoutProjectsProjectIdKeywordsIndexRoute: typeof LayoutProjectsProjectIdKeywordsIndexRoute
+  LayoutProjectsProjectIdLinksIndexRoute: typeof LayoutProjectsProjectIdLinksIndexRoute
   LayoutProjectsProjectIdRankTrackerIndexRoute: typeof LayoutProjectsProjectIdRankTrackerIndexRoute
   LayoutProjectsProjectIdAuditsAuditIdIssuesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   LayoutProjectsProjectIdAuditsAuditIdPagesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
@@ -520,12 +604,20 @@ const LayoutRouteChildren: LayoutRouteChildren = {
     LayoutProjectsProjectIdKeywordsOpportunitiesRoute,
   LayoutProjectsProjectIdKeywordsPagesRoute:
     LayoutProjectsProjectIdKeywordsPagesRoute,
+  LayoutProjectsProjectIdLinksAnchorsRoute:
+    LayoutProjectsProjectIdLinksAnchorsRoute,
+  LayoutProjectsProjectIdLinksBacklinksRoute:
+    LayoutProjectsProjectIdLinksBacklinksRoute,
+  LayoutProjectsProjectIdLinksCompetitiveRoute:
+    LayoutProjectsProjectIdLinksCompetitiveRoute,
   LayoutProjectsProjectIdRankTrackerKeywordIdRoute:
     LayoutProjectsProjectIdRankTrackerKeywordIdRoute,
   LayoutProjectsProjectIdAuditsIndexRoute:
     LayoutProjectsProjectIdAuditsIndexRoute,
   LayoutProjectsProjectIdKeywordsIndexRoute:
     LayoutProjectsProjectIdKeywordsIndexRoute,
+  LayoutProjectsProjectIdLinksIndexRoute:
+    LayoutProjectsProjectIdLinksIndexRoute,
   LayoutProjectsProjectIdRankTrackerIndexRoute:
     LayoutProjectsProjectIdRankTrackerIndexRoute,
   LayoutProjectsProjectIdAuditsAuditIdIssuesRoute:
