@@ -7,24 +7,8 @@ import { RefDomainTable } from "@/components/Backlinks/RefDomainTable"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
-
-// Placeholder service - will be generated from OpenAPI
-const LinksService = {
-  getRefDomains: async (_options: { projectId: string; params?: { limit?: number; offset?: number } }) => {
-    // Placeholder implementation
-    return {
-      data: [] as Array<{
-        ref_domain: string
-        backlinks_count: number
-        dofollow_count: number
-        nofollow_count: number
-        first_seen: string
-        top_anchors: string[]
-      }>,
-      count: 0,
-    }
-  },
-}
+import { LinksService } from "@/services/links"
+import { ProjectsService } from "@/services/projects"
 
 export const Route = createFileRoute(
   "/_layout/projects/$projectId/links/"
@@ -45,16 +29,24 @@ function RefDomainsContent() {
   const [page, setPage] = useState(1)
   const limit = 50
 
+  // Fetch project to get the domain
+  const { data: project } = useQuery({
+    queryKey: ["project", projectId],
+    queryFn: () => ProjectsService.readProject({ id: projectId }),
+  })
+
+  // Extract domain from seed_url
+  const domain = project?.seed_url ? new URL(project.seed_url).hostname : ""
+
   const { data: refDomains, isLoading } = useQuery({
-    queryKey: ["ref-domains", projectId, page],
+    queryKey: ["ref-domains", domain, page],
     queryFn: () =>
       LinksService.getRefDomains({
-        projectId,
-        params: {
-          limit,
-          offset: (page - 1) * limit,
-        },
+        domain,
+        skip: (page - 1) * limit,
+        limit,
       }),
+    enabled: !!domain,
   })
 
   if (isLoading) {
@@ -70,7 +62,7 @@ function RefDomainsContent() {
     domain.ref_domain.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  const totalPages = Math.ceil((refDomains?.count || 0) / limit)
+  const totalPages = Math.ceil((refDomains?.total || 0) / limit)
   const hasData = filteredDomains && filteredDomains.length > 0
 
   return (
@@ -85,9 +77,9 @@ function RefDomainsContent() {
             className="pl-9"
           />
         </div>
-        {refDomains?.count !== undefined && (
+        {refDomains?.total !== undefined && (
           <div className="flex items-center text-sm text-muted-foreground">
-            {refDomains.count} referring domain{refDomains.count !== 1 ? "s" : ""}
+            {refDomains.total} referring domain{refDomains.total !== 1 ? "s" : ""}
           </div>
         )}
       </div>

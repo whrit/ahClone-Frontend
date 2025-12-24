@@ -36,7 +36,7 @@ export class TrafficService {
         project_id: data.projectId,
       },
       query: {
-        period: data.period || 28,
+        period_days: data.period || 28,
       },
       errors: {
         422: "Validation Error",

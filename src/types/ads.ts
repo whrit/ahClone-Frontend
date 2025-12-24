@@ -10,7 +10,7 @@ export interface CampaignPerformance {
   ctr: number
   average_cpc_micros: number
   conversions_value: number
-  status: string
+  campaign_status: string
 }
 
 export interface CampaignsResponse {

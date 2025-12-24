@@ -8,28 +8,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-
-// Placeholder service - will be generated from OpenAPI
-const LinksService = {
-  getBacklinks: async (_options: {
-    projectId: string
-    params?: { domain?: string; limit?: number; offset?: number }
-  }) => {
-    // Placeholder implementation
-    return {
-      data: [] as Array<{
-        id: string
-        source_url: string
-        target_url: string
-        anchor_text: string
-        link_type: "dofollow" | "nofollow"
-        first_seen: string
-        ref_domain?: string
-      }>,
-      count: 0,
-    }
-  },
-}
+import { LinksService } from "@/services/links"
+import { ProjectsService } from "@/services/projects"
 
 interface BacklinksSearch {
   domain?: string
@@ -55,22 +35,30 @@ export const Route = createFileRoute(
 
 function BacklinksContent() {
   const { projectId } = Route.useParams()
-  const { domain } = Route.useSearch()
+  const { domain: refDomainParam } = Route.useSearch()
   const [page, setPage] = useState(1)
-  const [domainFilter, setDomainFilter] = useState(domain || "")
+  const [domainFilter, setDomainFilter] = useState(refDomainParam || "")
   const limit = 50
 
+  // Fetch project to get the target domain
+  const { data: project } = useQuery({
+    queryKey: ["project", projectId],
+    queryFn: () => ProjectsService.readProject({ id: projectId }),
+  })
+
+  // Extract domain from seed_url
+  const targetDomain = project?.seed_url ? new URL(project.seed_url).hostname : ""
+
   const { data: backlinks, isLoading } = useQuery({
-    queryKey: ["backlinks", projectId, domainFilter, page],
+    queryKey: ["backlinks", targetDomain, domainFilter, page],
     queryFn: () =>
       LinksService.getBacklinks({
-        projectId,
-        params: {
-          domain: domainFilter || undefined,
-          limit,
-          offset: (page - 1) * limit,
-        },
+        domain: targetDomain,
+        ref_domain: domainFilter || undefined,
+        skip: (page - 1) * limit,
+        limit,
       }),
+    enabled: !!targetDomain,
   })
 
   if (isLoading) {
@@ -82,7 +70,7 @@ function BacklinksContent() {
     )
   }
 
-  const totalPages = Math.ceil((backlinks?.count || 0) / limit)
+  const totalPages = Math.ceil((backlinks?.total || 0) / limit)
   const hasData = backlinks?.data && backlinks.data.length > 0
 
   return (
@@ -109,11 +97,11 @@ function BacklinksContent() {
             Clear Filter
           </Button>
         )}
-        {backlinks?.count !== undefined && (
+        {backlinks?.total !== undefined && (
           <div className="flex items-center gap-2">
-            <Badge variant="secondary">{backlinks.count}</Badge>
+            <Badge variant="secondary">{backlinks.total}</Badge>
             <span className="text-sm text-muted-foreground">
-              backlink{backlinks.count !== 1 ? "s" : ""}
+              backlink{backlinks.total !== 1 ? "s" : ""}
             </span>
           </div>
         )}

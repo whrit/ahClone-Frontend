@@ -16,9 +16,10 @@ export function PositionChange({ change, className }: PositionChangeProps) {
     )
   }
 
-  // In SERP tracking, lower position numbers are better
-  // So negative change (going from 10 to 5) is an improvement
-  const isImprovement = change < 0
+  // Backend calculates: position_change = previous_rank - current_rank
+  // Moving from rank 10 to rank 5: 10 - 5 = +5 (positive = improvement)
+  // Moving from rank 5 to rank 10: 5 - 10 = -5 (negative = decline)
+  const isImprovement = change > 0
   const displayChange = Math.abs(change)
 
   return (

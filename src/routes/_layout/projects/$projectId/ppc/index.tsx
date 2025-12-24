@@ -305,8 +305,8 @@ function PPCContent() {
                         {campaign.campaign_name}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Badge variant={getStatusBadgeVariant(campaign.status)}>
-                          {campaign.status}
+                        <Badge variant={getStatusBadgeVariant(campaign.campaign_status)}>
+                          {campaign.campaign_status}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right">

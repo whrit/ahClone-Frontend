@@ -20,39 +20,8 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { Skeleton } from "@/components/ui/skeleton"
-
-// Placeholder service - will be generated from OpenAPI
-const LinksService = {
-  getCompetitorOverlap: async (_options: {
-    projectId: string
-    params: { competitors: string[] }
-  }) => {
-    // Placeholder implementation
-    return {
-      data: [] as Array<{
-        domain: string
-        links_to_site: number
-        links_to_competitors: Record<string, number>
-        total_links: number
-      }>,
-      count: 0,
-    }
-  },
-  getCompetitorGap: async (_options: {
-    projectId: string
-    params: { competitors: string[] }
-  }) => {
-    // Placeholder implementation
-    return {
-      data: [] as Array<{
-        domain: string
-        links_to_competitors: Record<string, number>
-        total_links: number
-      }>,
-      count: 0,
-    }
-  },
-}
+import { LinksService } from "@/services/links"
+import { ProjectsService } from "@/services/projects"
 
 export const Route = createFileRoute(
   "/_layout/projects/$projectId/links/competitive"
@@ -72,24 +41,33 @@ function CompetitiveContent() {
   const [competitors, setCompetitors] = useState<string[]>([])
   const [activeTab, setActiveTab] = useState<"overlap" | "gap">("overlap")
 
+  // Fetch project to get the domain
+  const { data: project } = useQuery({
+    queryKey: ["project", projectId],
+    queryFn: () => ProjectsService.readProject({ id: projectId }),
+  })
+
+  // Extract domain from seed_url
+  const domain = project?.seed_url ? new URL(project.seed_url).hostname : ""
+
   const { data: overlapData, isLoading: isLoadingOverlap } = useQuery({
-    queryKey: ["competitor-overlap", projectId, competitors],
+    queryKey: ["competitor-overlap", domain, competitors],
     queryFn: () =>
       LinksService.getCompetitorOverlap({
-        projectId,
-        params: { competitors },
+        domain,
+        competitors,
       }),
-    enabled: competitors.length > 0,
+    enabled: competitors.length > 0 && !!domain,
   })
 
   const { data: gapData, isLoading: isLoadingGap } = useQuery({
-    queryKey: ["competitor-gap", projectId, competitors],
+    queryKey: ["competitor-gap", domain, competitors],
     queryFn: () =>
       LinksService.getCompetitorGap({
-        projectId,
-        params: { competitors },
+        domain,
+        competitors,
       }),
-    enabled: competitors.length > 0,
+    enabled: competitors.length > 0 && !!domain,
   })
 
   const isLoading =
@@ -124,7 +102,7 @@ function CompetitiveContent() {
                     Domains linking to both your site and competitor sites
                   </p>
                   <Badge variant="secondary">
-                    {overlapData.count} shared domains
+                    {overlapData.total} shared domains
                   </Badge>
                 </div>
 
@@ -133,22 +111,18 @@ function CompetitiveContent() {
                     <TableRow>
                       <TableHead>Domain</TableHead>
                       <TableHead className="text-right">Your Site</TableHead>
-                      {competitors.map((comp) => (
-                        <TableHead key={comp} className="text-right">
-                          {comp}
-                        </TableHead>
-                      ))}
+                      <TableHead className="text-right">Competitor</TableHead>
                       <TableHead className="text-right">Total Links</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {overlapData.data.map((domain) => (
-                      <TableRow key={domain.domain}>
+                    {overlapData.data.map((item) => (
+                      <TableRow key={item.domain}>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <span className="font-medium">{domain.domain}</span>
+                            <span className="font-medium">{item.domain}</span>
                             <a
-                              href={`https://${domain.domain}`}
+                              href={`https://${item.domain}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -158,17 +132,13 @@ function CompetitiveContent() {
                           </div>
                         </TableCell>
                         <TableCell className="text-right">
-                          <Badge variant="default">{domain.links_to_site}</Badge>
+                          <Badge variant="default">{item.links_to_a}</Badge>
                         </TableCell>
-                        {competitors.map((comp) => (
-                          <TableCell key={comp} className="text-right">
-                            <Badge variant="outline">
-                              {domain.links_to_competitors[comp] || 0}
-                            </Badge>
-                          </TableCell>
-                        ))}
                         <TableCell className="text-right">
-                          <Badge variant="secondary">{domain.total_links}</Badge>
+                          <Badge variant="outline">{item.links_to_b}</Badge>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Badge variant="secondary">{item.total_backlinks}</Badge>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -200,7 +170,7 @@ function CompetitiveContent() {
                     Domains linking to competitors but not to your site
                   </p>
                   <Badge variant="secondary">
-                    {gapData.count} potential opportunities
+                    {gapData.total} potential opportunities
                   </Badge>
                 </div>
 
@@ -208,22 +178,19 @@ function CompetitiveContent() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Domain</TableHead>
-                      {competitors.map((comp) => (
-                        <TableHead key={comp} className="text-right">
-                          {comp}
-                        </TableHead>
-                      ))}
-                      <TableHead className="text-right">Total Links</TableHead>
+                      <TableHead className="text-right">Backlinks</TableHead>
+                      <TableHead className="text-right">Dofollow</TableHead>
+                      <TableHead className="text-right">Nofollow</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {gapData.data.map((domain) => (
-                      <TableRow key={domain.domain}>
+                    {gapData.data.map((item) => (
+                      <TableRow key={item.domain}>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <span className="font-medium">{domain.domain}</span>
+                            <span className="font-medium">{item.domain}</span>
                             <a
-                              href={`https://${domain.domain}`}
+                              href={`https://${item.domain}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -232,15 +199,14 @@ function CompetitiveContent() {
                             </a>
                           </div>
                         </TableCell>
-                        {competitors.map((comp) => (
-                          <TableCell key={comp} className="text-right">
-                            <Badge variant="outline">
-                              {domain.links_to_competitors[comp] || 0}
-                            </Badge>
-                          </TableCell>
-                        ))}
                         <TableCell className="text-right">
-                          <Badge variant="secondary">{domain.total_links}</Badge>
+                          <Badge variant="secondary">{item.backlinks_count}</Badge>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Badge variant="default">{item.dofollow_count}</Badge>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Badge variant="outline">{item.nofollow_count}</Badge>
                         </TableCell>
                       </TableRow>
                     ))}

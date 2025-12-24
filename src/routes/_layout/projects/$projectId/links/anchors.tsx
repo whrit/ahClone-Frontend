@@ -22,25 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-// Placeholder service - will be generated from OpenAPI
-const LinksService = {
-  getAnchorTexts: async (_options: {
-    projectId: string
-    params?: { sort_by?: "count" | "domains"; limit?: number }
-  }) => {
-    // Placeholder implementation
-    return {
-      data: [] as Array<{
-        anchor_text: string
-        backlinks_count: number
-        ref_domains_count: number
-        percentage: number
-      }>,
-      count: 0,
-    }
-  },
-}
+import { LinksService } from "@/services/links"
+import { ProjectsService } from "@/services/projects"
 
 export const Route = createFileRoute(
   "/_layout/projects/$projectId/links/anchors"
@@ -60,16 +43,24 @@ function AnchorsContent() {
   const [sortBy, setSortBy] = useState<"count" | "domains">("count")
   const [viewMode, setViewMode] = useState<"chart" | "table">("chart")
 
+  // Fetch project to get the domain
+  const { data: project } = useQuery({
+    queryKey: ["project", projectId],
+    queryFn: () => ProjectsService.readProject({ id: projectId }),
+  })
+
+  // Extract domain from seed_url
+  const domain = project?.seed_url ? new URL(project.seed_url).hostname : ""
+
   const { data: anchors, isLoading } = useQuery({
-    queryKey: ["anchor-texts", projectId, sortBy],
+    queryKey: ["anchor-texts", domain, sortBy],
     queryFn: () =>
       LinksService.getAnchorTexts({
-        projectId,
-        params: {
-          sort_by: sortBy,
-          limit: 100,
-        },
+        domain,
+        skip: 0,
+        limit: 100,
       }),
+    enabled: !!domain,
   })
 
   if (isLoading) {
@@ -126,8 +117,8 @@ function AnchorsContent() {
               </SelectItem>
             </SelectContent>
           </Select>
-          {anchors?.count !== undefined && (
-            <Badge variant="secondary">{anchors.count} unique anchors</Badge>
+          {anchors?.total !== undefined && (
+            <Badge variant="secondary">{anchors.total} unique anchors</Badge>
           )}
         </div>
       </div>
@@ -140,8 +131,8 @@ function AnchorsContent() {
               <AnchorChart
                 data={anchors.data.map((anchor) => ({
                   anchor_text: anchor.anchor_text,
-                  count: anchor.backlinks_count,
-                  percentage: anchor.percentage,
+                  count: anchor.backlinks,
+                  percentage: (anchor.backlinks / anchors.total) * 100,
                 }))}
                 maxItems={20}
               />
@@ -169,14 +160,14 @@ function AnchorsContent() {
                       </span>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Badge variant="secondary">{anchor.backlinks_count}</Badge>
+                      <Badge variant="secondary">{anchor.backlinks}</Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Badge variant="outline">{anchor.ref_domains_count}</Badge>
+                      <Badge variant="outline">{anchor.ref_domains}</Badge>
                     </TableCell>
                     <TableCell className="text-right">
                       <span className="text-sm text-muted-foreground">
-                        {anchor.percentage.toFixed(1)}%
+                        {((anchor.backlinks / anchors.total) * 100).toFixed(1)}%
                       </span>
                     </TableCell>
                   </TableRow>

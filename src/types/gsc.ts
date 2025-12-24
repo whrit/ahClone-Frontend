@@ -78,6 +78,10 @@ export interface ClusterMemberPublic {
   cluster_id: string
   query: string
   weight: number
+  clicks: number
+  impressions: number
+  ctr: number
+  position: number
 }
 
 export interface ClusterWithMembers extends ClusterPublic {
