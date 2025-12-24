@@ -8,6 +8,7 @@ import {
   MousePointerClick,
   Search,
   Settings,
+  TrendingUp,
 } from "lucide-react"
 
 import { ProjectsService } from "@/services/projects"
@@ -207,7 +208,16 @@ function ProjectOverview() {
           icon={<MousePointerClick className="h-5 w-5 text-primary" />}
           lastSync={project.last_ppc_sync_at}
           actionLabel="View PPC"
-          badge="Coming Soon"
+          actionHref={`/projects/${projectId}/ppc`}
+        />
+
+        <ModuleCard
+          title="Traffic Panel"
+          description="Multi-source traffic dashboard with GA4, GSC, and Core Web Vitals"
+          icon={<TrendingUp className="h-5 w-5 text-primary" />}
+          lastSync={project.last_gsc_sync_at}
+          actionLabel="View Traffic"
+          actionHref={`/projects/${projectId}/traffic`}
         />
       </div>
     </div>

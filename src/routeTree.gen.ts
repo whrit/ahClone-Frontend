@@ -22,11 +22,15 @@ import { Route as LayoutProjectsIndexRouteImport } from './routes/_layout/projec
 import { Route as LayoutProjectsNewRouteImport } from './routes/_layout/projects/new'
 import { Route as LayoutProjectsProjectIdIndexRouteImport } from './routes/_layout/projects/$projectId/index'
 import { Route as LayoutProjectsProjectIdSettingsRouteImport } from './routes/_layout/projects/$projectId/settings'
+import { Route as LayoutProjectsProjectIdTrafficIndexRouteImport } from './routes/_layout/projects/$projectId/traffic/index'
 import { Route as LayoutProjectsProjectIdRankTrackerIndexRouteImport } from './routes/_layout/projects/$projectId/rank-tracker/index'
+import { Route as LayoutProjectsProjectIdPpcIndexRouteImport } from './routes/_layout/projects/$projectId/ppc/index'
 import { Route as LayoutProjectsProjectIdLinksIndexRouteImport } from './routes/_layout/projects/$projectId/links/index'
 import { Route as LayoutProjectsProjectIdKeywordsIndexRouteImport } from './routes/_layout/projects/$projectId/keywords/index'
 import { Route as LayoutProjectsProjectIdAuditsIndexRouteImport } from './routes/_layout/projects/$projectId/audits/index'
 import { Route as LayoutProjectsProjectIdRankTrackerKeywordIdRouteImport } from './routes/_layout/projects/$projectId/rank-tracker/$keywordId'
+import { Route as LayoutProjectsProjectIdPpcTransparencyRouteImport } from './routes/_layout/projects/$projectId/ppc/transparency'
+import { Route as LayoutProjectsProjectIdPpcOverlapRouteImport } from './routes/_layout/projects/$projectId/ppc/overlap'
 import { Route as LayoutProjectsProjectIdLinksCompetitiveRouteImport } from './routes/_layout/projects/$projectId/links/competitive'
 import { Route as LayoutProjectsProjectIdLinksBacklinksRouteImport } from './routes/_layout/projects/$projectId/links/backlinks'
 import { Route as LayoutProjectsProjectIdLinksAnchorsRouteImport } from './routes/_layout/projects/$projectId/links/anchors'
@@ -103,10 +107,22 @@ const LayoutProjectsProjectIdSettingsRoute =
     path: '/projects/$projectId/settings',
     getParentRoute: () => LayoutRoute,
   } as any)
+const LayoutProjectsProjectIdTrafficIndexRoute =
+  LayoutProjectsProjectIdTrafficIndexRouteImport.update({
+    id: '/projects/$projectId/traffic/',
+    path: '/projects/$projectId/traffic/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 const LayoutProjectsProjectIdRankTrackerIndexRoute =
   LayoutProjectsProjectIdRankTrackerIndexRouteImport.update({
     id: '/projects/$projectId/rank-tracker/',
     path: '/projects/$projectId/rank-tracker/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdPpcIndexRoute =
+  LayoutProjectsProjectIdPpcIndexRouteImport.update({
+    id: '/projects/$projectId/ppc/',
+    path: '/projects/$projectId/ppc/',
     getParentRoute: () => LayoutRoute,
   } as any)
 const LayoutProjectsProjectIdLinksIndexRoute =
@@ -131,6 +147,18 @@ const LayoutProjectsProjectIdRankTrackerKeywordIdRoute =
   LayoutProjectsProjectIdRankTrackerKeywordIdRouteImport.update({
     id: '/projects/$projectId/rank-tracker/$keywordId',
     path: '/projects/$projectId/rank-tracker/$keywordId',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdPpcTransparencyRoute =
+  LayoutProjectsProjectIdPpcTransparencyRouteImport.update({
+    id: '/projects/$projectId/ppc/transparency',
+    path: '/projects/$projectId/ppc/transparency',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdPpcOverlapRoute =
+  LayoutProjectsProjectIdPpcOverlapRouteImport.update({
+    id: '/projects/$projectId/ppc/overlap',
+    path: '/projects/$projectId/ppc/overlap',
     getParentRoute: () => LayoutRoute,
   } as any)
 const LayoutProjectsProjectIdLinksCompetitiveRoute =
@@ -207,11 +235,15 @@ export interface FileRoutesByFullPath {
   '/projects/$projectId/links/anchors': typeof LayoutProjectsProjectIdLinksAnchorsRoute
   '/projects/$projectId/links/backlinks': typeof LayoutProjectsProjectIdLinksBacklinksRoute
   '/projects/$projectId/links/competitive': typeof LayoutProjectsProjectIdLinksCompetitiveRoute
+  '/projects/$projectId/ppc/overlap': typeof LayoutProjectsProjectIdPpcOverlapRoute
+  '/projects/$projectId/ppc/transparency': typeof LayoutProjectsProjectIdPpcTransparencyRoute
   '/projects/$projectId/rank-tracker/$keywordId': typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
   '/projects/$projectId/keywords': typeof LayoutProjectsProjectIdKeywordsIndexRoute
   '/projects/$projectId/links': typeof LayoutProjectsProjectIdLinksIndexRoute
+  '/projects/$projectId/ppc': typeof LayoutProjectsProjectIdPpcIndexRoute
   '/projects/$projectId/rank-tracker': typeof LayoutProjectsProjectIdRankTrackerIndexRoute
+  '/projects/$projectId/traffic': typeof LayoutProjectsProjectIdTrafficIndexRoute
   '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   '/projects/$projectId/audits/$auditId': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -235,11 +267,15 @@ export interface FileRoutesByTo {
   '/projects/$projectId/links/anchors': typeof LayoutProjectsProjectIdLinksAnchorsRoute
   '/projects/$projectId/links/backlinks': typeof LayoutProjectsProjectIdLinksBacklinksRoute
   '/projects/$projectId/links/competitive': typeof LayoutProjectsProjectIdLinksCompetitiveRoute
+  '/projects/$projectId/ppc/overlap': typeof LayoutProjectsProjectIdPpcOverlapRoute
+  '/projects/$projectId/ppc/transparency': typeof LayoutProjectsProjectIdPpcTransparencyRoute
   '/projects/$projectId/rank-tracker/$keywordId': typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
   '/projects/$projectId/keywords': typeof LayoutProjectsProjectIdKeywordsIndexRoute
   '/projects/$projectId/links': typeof LayoutProjectsProjectIdLinksIndexRoute
+  '/projects/$projectId/ppc': typeof LayoutProjectsProjectIdPpcIndexRoute
   '/projects/$projectId/rank-tracker': typeof LayoutProjectsProjectIdRankTrackerIndexRoute
+  '/projects/$projectId/traffic': typeof LayoutProjectsProjectIdTrafficIndexRoute
   '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   '/projects/$projectId/audits/$auditId': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -265,11 +301,15 @@ export interface FileRoutesById {
   '/_layout/projects/$projectId/links/anchors': typeof LayoutProjectsProjectIdLinksAnchorsRoute
   '/_layout/projects/$projectId/links/backlinks': typeof LayoutProjectsProjectIdLinksBacklinksRoute
   '/_layout/projects/$projectId/links/competitive': typeof LayoutProjectsProjectIdLinksCompetitiveRoute
+  '/_layout/projects/$projectId/ppc/overlap': typeof LayoutProjectsProjectIdPpcOverlapRoute
+  '/_layout/projects/$projectId/ppc/transparency': typeof LayoutProjectsProjectIdPpcTransparencyRoute
   '/_layout/projects/$projectId/rank-tracker/$keywordId': typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   '/_layout/projects/$projectId/audits/': typeof LayoutProjectsProjectIdAuditsIndexRoute
   '/_layout/projects/$projectId/keywords/': typeof LayoutProjectsProjectIdKeywordsIndexRoute
   '/_layout/projects/$projectId/links/': typeof LayoutProjectsProjectIdLinksIndexRoute
+  '/_layout/projects/$projectId/ppc/': typeof LayoutProjectsProjectIdPpcIndexRoute
   '/_layout/projects/$projectId/rank-tracker/': typeof LayoutProjectsProjectIdRankTrackerIndexRoute
+  '/_layout/projects/$projectId/traffic/': typeof LayoutProjectsProjectIdTrafficIndexRoute
   '/_layout/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/_layout/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   '/_layout/projects/$projectId/audits/$auditId/': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -295,11 +335,15 @@ export interface FileRouteTypes {
     | '/projects/$projectId/links/anchors'
     | '/projects/$projectId/links/backlinks'
     | '/projects/$projectId/links/competitive'
+    | '/projects/$projectId/ppc/overlap'
+    | '/projects/$projectId/ppc/transparency'
     | '/projects/$projectId/rank-tracker/$keywordId'
     | '/projects/$projectId/audits'
     | '/projects/$projectId/keywords'
     | '/projects/$projectId/links'
+    | '/projects/$projectId/ppc'
     | '/projects/$projectId/rank-tracker'
+    | '/projects/$projectId/traffic'
     | '/projects/$projectId/audits/$auditId/issues'
     | '/projects/$projectId/audits/$auditId/pages'
     | '/projects/$projectId/audits/$auditId'
@@ -323,11 +367,15 @@ export interface FileRouteTypes {
     | '/projects/$projectId/links/anchors'
     | '/projects/$projectId/links/backlinks'
     | '/projects/$projectId/links/competitive'
+    | '/projects/$projectId/ppc/overlap'
+    | '/projects/$projectId/ppc/transparency'
     | '/projects/$projectId/rank-tracker/$keywordId'
     | '/projects/$projectId/audits'
     | '/projects/$projectId/keywords'
     | '/projects/$projectId/links'
+    | '/projects/$projectId/ppc'
     | '/projects/$projectId/rank-tracker'
+    | '/projects/$projectId/traffic'
     | '/projects/$projectId/audits/$auditId/issues'
     | '/projects/$projectId/audits/$auditId/pages'
     | '/projects/$projectId/audits/$auditId'
@@ -352,11 +400,15 @@ export interface FileRouteTypes {
     | '/_layout/projects/$projectId/links/anchors'
     | '/_layout/projects/$projectId/links/backlinks'
     | '/_layout/projects/$projectId/links/competitive'
+    | '/_layout/projects/$projectId/ppc/overlap'
+    | '/_layout/projects/$projectId/ppc/transparency'
     | '/_layout/projects/$projectId/rank-tracker/$keywordId'
     | '/_layout/projects/$projectId/audits/'
     | '/_layout/projects/$projectId/keywords/'
     | '/_layout/projects/$projectId/links/'
+    | '/_layout/projects/$projectId/ppc/'
     | '/_layout/projects/$projectId/rank-tracker/'
+    | '/_layout/projects/$projectId/traffic/'
     | '/_layout/projects/$projectId/audits/$auditId/issues'
     | '/_layout/projects/$projectId/audits/$auditId/pages'
     | '/_layout/projects/$projectId/audits/$auditId/'
@@ -463,11 +515,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProjectsProjectIdSettingsRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/projects/$projectId/traffic/': {
+      id: '/_layout/projects/$projectId/traffic/'
+      path: '/projects/$projectId/traffic'
+      fullPath: '/projects/$projectId/traffic'
+      preLoaderRoute: typeof LayoutProjectsProjectIdTrafficIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/projects/$projectId/rank-tracker/': {
       id: '/_layout/projects/$projectId/rank-tracker/'
       path: '/projects/$projectId/rank-tracker'
       fullPath: '/projects/$projectId/rank-tracker'
       preLoaderRoute: typeof LayoutProjectsProjectIdRankTrackerIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/ppc/': {
+      id: '/_layout/projects/$projectId/ppc/'
+      path: '/projects/$projectId/ppc'
+      fullPath: '/projects/$projectId/ppc'
+      preLoaderRoute: typeof LayoutProjectsProjectIdPpcIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/projects/$projectId/links/': {
@@ -496,6 +562,20 @@ declare module '@tanstack/react-router' {
       path: '/projects/$projectId/rank-tracker/$keywordId'
       fullPath: '/projects/$projectId/rank-tracker/$keywordId'
       preLoaderRoute: typeof LayoutProjectsProjectIdRankTrackerKeywordIdRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/ppc/transparency': {
+      id: '/_layout/projects/$projectId/ppc/transparency'
+      path: '/projects/$projectId/ppc/transparency'
+      fullPath: '/projects/$projectId/ppc/transparency'
+      preLoaderRoute: typeof LayoutProjectsProjectIdPpcTransparencyRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/ppc/overlap': {
+      id: '/_layout/projects/$projectId/ppc/overlap'
+      path: '/projects/$projectId/ppc/overlap'
+      fullPath: '/projects/$projectId/ppc/overlap'
+      preLoaderRoute: typeof LayoutProjectsProjectIdPpcOverlapRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/projects/$projectId/links/competitive': {
@@ -579,11 +659,15 @@ interface LayoutRouteChildren {
   LayoutProjectsProjectIdLinksAnchorsRoute: typeof LayoutProjectsProjectIdLinksAnchorsRoute
   LayoutProjectsProjectIdLinksBacklinksRoute: typeof LayoutProjectsProjectIdLinksBacklinksRoute
   LayoutProjectsProjectIdLinksCompetitiveRoute: typeof LayoutProjectsProjectIdLinksCompetitiveRoute
+  LayoutProjectsProjectIdPpcOverlapRoute: typeof LayoutProjectsProjectIdPpcOverlapRoute
+  LayoutProjectsProjectIdPpcTransparencyRoute: typeof LayoutProjectsProjectIdPpcTransparencyRoute
   LayoutProjectsProjectIdRankTrackerKeywordIdRoute: typeof LayoutProjectsProjectIdRankTrackerKeywordIdRoute
   LayoutProjectsProjectIdAuditsIndexRoute: typeof LayoutProjectsProjectIdAuditsIndexRoute
   LayoutProjectsProjectIdKeywordsIndexRoute: typeof LayoutProjectsProjectIdKeywordsIndexRoute
   LayoutProjectsProjectIdLinksIndexRoute: typeof LayoutProjectsProjectIdLinksIndexRoute
+  LayoutProjectsProjectIdPpcIndexRoute: typeof LayoutProjectsProjectIdPpcIndexRoute
   LayoutProjectsProjectIdRankTrackerIndexRoute: typeof LayoutProjectsProjectIdRankTrackerIndexRoute
+  LayoutProjectsProjectIdTrafficIndexRoute: typeof LayoutProjectsProjectIdTrafficIndexRoute
   LayoutProjectsProjectIdAuditsAuditIdIssuesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   LayoutProjectsProjectIdAuditsAuditIdPagesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   LayoutProjectsProjectIdAuditsAuditIdIndexRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -610,6 +694,10 @@ const LayoutRouteChildren: LayoutRouteChildren = {
     LayoutProjectsProjectIdLinksBacklinksRoute,
   LayoutProjectsProjectIdLinksCompetitiveRoute:
     LayoutProjectsProjectIdLinksCompetitiveRoute,
+  LayoutProjectsProjectIdPpcOverlapRoute:
+    LayoutProjectsProjectIdPpcOverlapRoute,
+  LayoutProjectsProjectIdPpcTransparencyRoute:
+    LayoutProjectsProjectIdPpcTransparencyRoute,
   LayoutProjectsProjectIdRankTrackerKeywordIdRoute:
     LayoutProjectsProjectIdRankTrackerKeywordIdRoute,
   LayoutProjectsProjectIdAuditsIndexRoute:
@@ -618,8 +706,11 @@ const LayoutRouteChildren: LayoutRouteChildren = {
     LayoutProjectsProjectIdKeywordsIndexRoute,
   LayoutProjectsProjectIdLinksIndexRoute:
     LayoutProjectsProjectIdLinksIndexRoute,
+  LayoutProjectsProjectIdPpcIndexRoute: LayoutProjectsProjectIdPpcIndexRoute,
   LayoutProjectsProjectIdRankTrackerIndexRoute:
     LayoutProjectsProjectIdRankTrackerIndexRoute,
+  LayoutProjectsProjectIdTrafficIndexRoute:
+    LayoutProjectsProjectIdTrafficIndexRoute,
   LayoutProjectsProjectIdAuditsAuditIdIssuesRoute:
     LayoutProjectsProjectIdAuditsAuditIdIssuesRoute,
   LayoutProjectsProjectIdAuditsAuditIdPagesRoute:
