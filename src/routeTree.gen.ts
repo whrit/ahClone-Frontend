@@ -22,7 +22,11 @@ import { Route as LayoutProjectsIndexRouteImport } from './routes/_layout/projec
 import { Route as LayoutProjectsNewRouteImport } from './routes/_layout/projects/new'
 import { Route as LayoutProjectsProjectIdIndexRouteImport } from './routes/_layout/projects/$projectId/index'
 import { Route as LayoutProjectsProjectIdSettingsRouteImport } from './routes/_layout/projects/$projectId/settings'
+import { Route as LayoutProjectsProjectIdKeywordsIndexRouteImport } from './routes/_layout/projects/$projectId/keywords/index'
 import { Route as LayoutProjectsProjectIdAuditsIndexRouteImport } from './routes/_layout/projects/$projectId/audits/index'
+import { Route as LayoutProjectsProjectIdKeywordsPagesRouteImport } from './routes/_layout/projects/$projectId/keywords/pages'
+import { Route as LayoutProjectsProjectIdKeywordsOpportunitiesRouteImport } from './routes/_layout/projects/$projectId/keywords/opportunities'
+import { Route as LayoutProjectsProjectIdKeywordsClustersRouteImport } from './routes/_layout/projects/$projectId/keywords/clusters'
 import { Route as LayoutProjectsProjectIdAuditsAuditIdIndexRouteImport } from './routes/_layout/projects/$projectId/audits/$auditId/index'
 import { Route as LayoutProjectsProjectIdAuditsAuditIdPagesRouteImport } from './routes/_layout/projects/$projectId/audits/$auditId/pages'
 import { Route as LayoutProjectsProjectIdAuditsAuditIdIssuesRouteImport } from './routes/_layout/projects/$projectId/audits/$auditId/issues'
@@ -93,10 +97,34 @@ const LayoutProjectsProjectIdSettingsRoute =
     path: '/projects/$projectId/settings',
     getParentRoute: () => LayoutRoute,
   } as any)
+const LayoutProjectsProjectIdKeywordsIndexRoute =
+  LayoutProjectsProjectIdKeywordsIndexRouteImport.update({
+    id: '/projects/$projectId/keywords/',
+    path: '/projects/$projectId/keywords/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 const LayoutProjectsProjectIdAuditsIndexRoute =
   LayoutProjectsProjectIdAuditsIndexRouteImport.update({
     id: '/projects/$projectId/audits/',
     path: '/projects/$projectId/audits/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdKeywordsPagesRoute =
+  LayoutProjectsProjectIdKeywordsPagesRouteImport.update({
+    id: '/projects/$projectId/keywords/pages',
+    path: '/projects/$projectId/keywords/pages',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdKeywordsOpportunitiesRoute =
+  LayoutProjectsProjectIdKeywordsOpportunitiesRouteImport.update({
+    id: '/projects/$projectId/keywords/opportunities',
+    path: '/projects/$projectId/keywords/opportunities',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdKeywordsClustersRoute =
+  LayoutProjectsProjectIdKeywordsClustersRouteImport.update({
+    id: '/projects/$projectId/keywords/clusters',
+    path: '/projects/$projectId/keywords/clusters',
     getParentRoute: () => LayoutRoute,
   } as any)
 const LayoutProjectsProjectIdAuditsAuditIdIndexRoute =
@@ -131,7 +159,11 @@ export interface FileRoutesByFullPath {
   '/projects': typeof LayoutProjectsIndexRoute
   '/projects/$projectId/settings': typeof LayoutProjectsProjectIdSettingsRoute
   '/projects/$projectId': typeof LayoutProjectsProjectIdIndexRoute
+  '/projects/$projectId/keywords/clusters': typeof LayoutProjectsProjectIdKeywordsClustersRoute
+  '/projects/$projectId/keywords/opportunities': typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
+  '/projects/$projectId/keywords/pages': typeof LayoutProjectsProjectIdKeywordsPagesRoute
   '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
+  '/projects/$projectId/keywords': typeof LayoutProjectsProjectIdKeywordsIndexRoute
   '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   '/projects/$projectId/audits/$auditId': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -149,7 +181,11 @@ export interface FileRoutesByTo {
   '/projects': typeof LayoutProjectsIndexRoute
   '/projects/$projectId/settings': typeof LayoutProjectsProjectIdSettingsRoute
   '/projects/$projectId': typeof LayoutProjectsProjectIdIndexRoute
+  '/projects/$projectId/keywords/clusters': typeof LayoutProjectsProjectIdKeywordsClustersRoute
+  '/projects/$projectId/keywords/opportunities': typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
+  '/projects/$projectId/keywords/pages': typeof LayoutProjectsProjectIdKeywordsPagesRoute
   '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
+  '/projects/$projectId/keywords': typeof LayoutProjectsProjectIdKeywordsIndexRoute
   '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   '/projects/$projectId/audits/$auditId': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -169,7 +205,11 @@ export interface FileRoutesById {
   '/_layout/projects/': typeof LayoutProjectsIndexRoute
   '/_layout/projects/$projectId/settings': typeof LayoutProjectsProjectIdSettingsRoute
   '/_layout/projects/$projectId/': typeof LayoutProjectsProjectIdIndexRoute
+  '/_layout/projects/$projectId/keywords/clusters': typeof LayoutProjectsProjectIdKeywordsClustersRoute
+  '/_layout/projects/$projectId/keywords/opportunities': typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
+  '/_layout/projects/$projectId/keywords/pages': typeof LayoutProjectsProjectIdKeywordsPagesRoute
   '/_layout/projects/$projectId/audits/': typeof LayoutProjectsProjectIdAuditsIndexRoute
+  '/_layout/projects/$projectId/keywords/': typeof LayoutProjectsProjectIdKeywordsIndexRoute
   '/_layout/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   '/_layout/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   '/_layout/projects/$projectId/audits/$auditId/': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -189,7 +229,11 @@ export interface FileRouteTypes {
     | '/projects'
     | '/projects/$projectId/settings'
     | '/projects/$projectId'
+    | '/projects/$projectId/keywords/clusters'
+    | '/projects/$projectId/keywords/opportunities'
+    | '/projects/$projectId/keywords/pages'
     | '/projects/$projectId/audits'
+    | '/projects/$projectId/keywords'
     | '/projects/$projectId/audits/$auditId/issues'
     | '/projects/$projectId/audits/$auditId/pages'
     | '/projects/$projectId/audits/$auditId'
@@ -207,7 +251,11 @@ export interface FileRouteTypes {
     | '/projects'
     | '/projects/$projectId/settings'
     | '/projects/$projectId'
+    | '/projects/$projectId/keywords/clusters'
+    | '/projects/$projectId/keywords/opportunities'
+    | '/projects/$projectId/keywords/pages'
     | '/projects/$projectId/audits'
+    | '/projects/$projectId/keywords'
     | '/projects/$projectId/audits/$auditId/issues'
     | '/projects/$projectId/audits/$auditId/pages'
     | '/projects/$projectId/audits/$auditId'
@@ -226,7 +274,11 @@ export interface FileRouteTypes {
     | '/_layout/projects/'
     | '/_layout/projects/$projectId/settings'
     | '/_layout/projects/$projectId/'
+    | '/_layout/projects/$projectId/keywords/clusters'
+    | '/_layout/projects/$projectId/keywords/opportunities'
+    | '/_layout/projects/$projectId/keywords/pages'
     | '/_layout/projects/$projectId/audits/'
+    | '/_layout/projects/$projectId/keywords/'
     | '/_layout/projects/$projectId/audits/$auditId/issues'
     | '/_layout/projects/$projectId/audits/$auditId/pages'
     | '/_layout/projects/$projectId/audits/$auditId/'
@@ -333,11 +385,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProjectsProjectIdSettingsRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/projects/$projectId/keywords/': {
+      id: '/_layout/projects/$projectId/keywords/'
+      path: '/projects/$projectId/keywords'
+      fullPath: '/projects/$projectId/keywords'
+      preLoaderRoute: typeof LayoutProjectsProjectIdKeywordsIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/projects/$projectId/audits/': {
       id: '/_layout/projects/$projectId/audits/'
       path: '/projects/$projectId/audits'
       fullPath: '/projects/$projectId/audits'
       preLoaderRoute: typeof LayoutProjectsProjectIdAuditsIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/keywords/pages': {
+      id: '/_layout/projects/$projectId/keywords/pages'
+      path: '/projects/$projectId/keywords/pages'
+      fullPath: '/projects/$projectId/keywords/pages'
+      preLoaderRoute: typeof LayoutProjectsProjectIdKeywordsPagesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/keywords/opportunities': {
+      id: '/_layout/projects/$projectId/keywords/opportunities'
+      path: '/projects/$projectId/keywords/opportunities'
+      fullPath: '/projects/$projectId/keywords/opportunities'
+      preLoaderRoute: typeof LayoutProjectsProjectIdKeywordsOpportunitiesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/keywords/clusters': {
+      id: '/_layout/projects/$projectId/keywords/clusters'
+      path: '/projects/$projectId/keywords/clusters'
+      fullPath: '/projects/$projectId/keywords/clusters'
+      preLoaderRoute: typeof LayoutProjectsProjectIdKeywordsClustersRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/projects/$projectId/audits/$auditId/': {
@@ -373,7 +453,11 @@ interface LayoutRouteChildren {
   LayoutProjectsIndexRoute: typeof LayoutProjectsIndexRoute
   LayoutProjectsProjectIdSettingsRoute: typeof LayoutProjectsProjectIdSettingsRoute
   LayoutProjectsProjectIdIndexRoute: typeof LayoutProjectsProjectIdIndexRoute
+  LayoutProjectsProjectIdKeywordsClustersRoute: typeof LayoutProjectsProjectIdKeywordsClustersRoute
+  LayoutProjectsProjectIdKeywordsOpportunitiesRoute: typeof LayoutProjectsProjectIdKeywordsOpportunitiesRoute
+  LayoutProjectsProjectIdKeywordsPagesRoute: typeof LayoutProjectsProjectIdKeywordsPagesRoute
   LayoutProjectsProjectIdAuditsIndexRoute: typeof LayoutProjectsProjectIdAuditsIndexRoute
+  LayoutProjectsProjectIdKeywordsIndexRoute: typeof LayoutProjectsProjectIdKeywordsIndexRoute
   LayoutProjectsProjectIdAuditsAuditIdIssuesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
   LayoutProjectsProjectIdAuditsAuditIdPagesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
   LayoutProjectsProjectIdAuditsAuditIdIndexRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
@@ -388,8 +472,16 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutProjectsIndexRoute: LayoutProjectsIndexRoute,
   LayoutProjectsProjectIdSettingsRoute: LayoutProjectsProjectIdSettingsRoute,
   LayoutProjectsProjectIdIndexRoute: LayoutProjectsProjectIdIndexRoute,
+  LayoutProjectsProjectIdKeywordsClustersRoute:
+    LayoutProjectsProjectIdKeywordsClustersRoute,
+  LayoutProjectsProjectIdKeywordsOpportunitiesRoute:
+    LayoutProjectsProjectIdKeywordsOpportunitiesRoute,
+  LayoutProjectsProjectIdKeywordsPagesRoute:
+    LayoutProjectsProjectIdKeywordsPagesRoute,
   LayoutProjectsProjectIdAuditsIndexRoute:
     LayoutProjectsProjectIdAuditsIndexRoute,
+  LayoutProjectsProjectIdKeywordsIndexRoute:
+    LayoutProjectsProjectIdKeywordsIndexRoute,
   LayoutProjectsProjectIdAuditsAuditIdIssuesRoute:
     LayoutProjectsProjectIdAuditsAuditIdIssuesRoute,
   LayoutProjectsProjectIdAuditsAuditIdPagesRoute:

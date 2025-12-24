@@ -180,7 +180,7 @@ function ProjectOverview() {
           icon={<Search className="h-5 w-5 text-primary" />}
           lastSync={project.last_gsc_sync_at}
           actionLabel="View Keywords"
-          badge="Coming Soon"
+          actionHref={`/projects/${projectId}/keywords`}
         />
 
         <ModuleCard
