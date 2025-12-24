@@ -23,12 +23,12 @@ export interface AdsTriggerSyncData {
   projectId: string
 }
 
-export class AdsService {
+export namespace AdsService {
   /**
    * Get Campaigns
    * Get Google Ads campaign performance data.
    */
-  public static getCampaigns(
+  export function getCampaigns(
     data: AdsGetCampaignsData,
   ): CancelablePromise<CampaignsResponse> {
     return __request(OpenAPI, {
@@ -50,7 +50,7 @@ export class AdsService {
    * Get SEO/PPC Overlap
    * Get keyword overlap analysis between SEO and PPC.
    */
-  public static getOverlap(
+  export function getOverlap(
     data: AdsGetOverlapData,
   ): CancelablePromise<SEOPPCOverlapResponse> {
     return __request(OpenAPI, {
@@ -75,7 +75,7 @@ export class AdsService {
    * Trigger Sync
    * Trigger a Google Ads data sync for the project.
    */
-  public static triggerSync(
+  export function triggerSync(
     data: AdsTriggerSyncData,
   ): CancelablePromise<AdsSyncResponse> {
     return __request(OpenAPI, {

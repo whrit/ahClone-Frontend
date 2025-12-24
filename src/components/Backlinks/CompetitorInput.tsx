@@ -75,6 +75,7 @@ export function CompetitorInput({
             <Badge key={competitor} variant="secondary" className="gap-1 pr-1">
               {competitor}
               <button
+                type="button"
                 onClick={() => handleRemove(competitor)}
                 className="ml-1 hover:bg-muted rounded-full p-0.5 transition-colors"
               >

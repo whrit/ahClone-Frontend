@@ -33,12 +33,12 @@ export interface ProjectsDeleteProjectData {
   id: string
 }
 
-export class ProjectsService {
+export namespace ProjectsService {
   /**
    * Read Projects
    * Retrieve projects.
    */
-  public static readProjects(
+  export function readProjects(
     data: ProjectsReadProjectsData = {},
   ): CancelablePromise<ProjectsPublic> {
     return __request(OpenAPI, {
@@ -58,7 +58,7 @@ export class ProjectsService {
    * Create Project
    * Create new project.
    */
-  public static createProject(
+  export function createProject(
     data: ProjectsCreateProjectData,
   ): CancelablePromise<ProjectPublic> {
     return __request(OpenAPI, {
@@ -76,7 +76,7 @@ export class ProjectsService {
    * Read Project
    * Get project by ID.
    */
-  public static readProject(
+  export function readProject(
     data: ProjectsReadProjectData,
   ): CancelablePromise<ProjectPublic> {
     return __request(OpenAPI, {
@@ -95,7 +95,7 @@ export class ProjectsService {
    * Update Project
    * Update a project.
    */
-  public static updateProject(
+  export function updateProject(
     data: ProjectsUpdateProjectData,
   ): CancelablePromise<ProjectPublic> {
     return __request(OpenAPI, {
@@ -116,7 +116,7 @@ export class ProjectsService {
    * Delete Project
    * Delete a project.
    */
-  public static deleteProject(
+  export function deleteProject(
     data: ProjectsDeleteProjectData,
   ): CancelablePromise<Message> {
     return __request(OpenAPI, {

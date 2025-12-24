@@ -9,18 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-interface RefDomain {
-  ref_domain: string
-  backlinks_count: number
-  dofollow_count: number
-  nofollow_count: number
-  first_seen: string
-  top_anchors: string[]
-}
+import type { RefDomainRow } from "@/types/links"
 
 interface RefDomainTableProps {
-  data: RefDomain[]
+  data: RefDomainRow[]
   projectId: string
   onDomainClick?: (domain: string) => void
 }
@@ -39,7 +31,7 @@ export function RefDomainTable({
           <TableHead className="text-right">DoFollow</TableHead>
           <TableHead className="text-right">NoFollow</TableHead>
           <TableHead>First Seen</TableHead>
-          <TableHead>Top Anchors</TableHead>
+          <TableHead>Last Seen</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -49,6 +41,7 @@ export function RefDomainTable({
               <div className="flex items-center gap-2">
                 {onDomainClick ? (
                   <button
+                    type="button"
                     onClick={() => onDomainClick(domain.ref_domain)}
                     className="font-medium hover:text-primary transition-colors text-left"
                   >
@@ -73,13 +66,13 @@ export function RefDomainTable({
               </div>
             </TableCell>
             <TableCell className="text-right">
-              <Badge variant="secondary">{domain.backlinks_count}</Badge>
+              <Badge variant="secondary">{domain.backlinks}</Badge>
             </TableCell>
             <TableCell className="text-right">
-              <Badge variant="default">{domain.dofollow_count}</Badge>
+              <Badge variant="default">{domain.dofollow}</Badge>
             </TableCell>
             <TableCell className="text-right">
-              <Badge variant="outline">{domain.nofollow_count}</Badge>
+              <Badge variant="outline">{domain.nofollow}</Badge>
             </TableCell>
             <TableCell>
               <span className="text-sm text-muted-foreground">
@@ -89,18 +82,11 @@ export function RefDomainTable({
               </span>
             </TableCell>
             <TableCell>
-              <div className="flex flex-wrap gap-1 max-w-md">
-                {domain.top_anchors.slice(0, 3).map((anchor, idx) => (
-                  <Badge key={idx} variant="outline" className="text-xs">
-                    {anchor}
-                  </Badge>
-                ))}
-                {domain.top_anchors.length > 3 && (
-                  <Badge variant="outline" className="text-xs">
-                    +{domain.top_anchors.length - 3}
-                  </Badge>
-                )}
-              </div>
+              <span className="text-sm text-muted-foreground">
+                {formatDistanceToNow(new Date(domain.last_seen), {
+                  addSuffix: true,
+                })}
+              </span>
             </TableCell>
           </TableRow>
         ))}

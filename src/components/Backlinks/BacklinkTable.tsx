@@ -9,19 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-interface Backlink {
-  id: string
-  source_url: string
-  target_url: string
-  anchor_text: string
-  link_type: "dofollow" | "nofollow"
-  first_seen: string
-  ref_domain?: string
-}
+import type { BacklinkRow } from "@/types/links"
 
 interface BacklinkTableProps {
-  data: Backlink[]
+  data: BacklinkRow[]
 }
 
 export function BacklinkTable({ data }: BacklinkTableProps) {
@@ -37,8 +28,10 @@ export function BacklinkTable({ data }: BacklinkTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((backlink) => (
-          <TableRow key={backlink.id}>
+        {data.map((backlink, index) => (
+          <TableRow
+            key={`${backlink.source_url}-${backlink.target_url}-${index}`}
+          >
             <TableCell>
               <a
                 href={backlink.source_url}
@@ -51,11 +44,9 @@ export function BacklinkTable({ data }: BacklinkTableProps) {
                 </span>
                 <ExternalLink className="h-3 w-3 shrink-0" />
               </a>
-              {backlink.ref_domain && (
-                <div className="text-xs text-muted-foreground mt-1">
-                  {backlink.ref_domain}
-                </div>
-              )}
+              <div className="text-xs text-muted-foreground mt-1">
+                {backlink.source_domain}
+              </div>
             </TableCell>
             <TableCell>
               <a
@@ -73,7 +64,7 @@ export function BacklinkTable({ data }: BacklinkTableProps) {
             <TableCell>
               <span
                 className="text-sm max-w-xs truncate inline-block"
-                title={backlink.anchor_text}
+                title={backlink.anchor_text || ""}
               >
                 {backlink.anchor_text || (
                   <span className="text-muted-foreground italic">
@@ -83,12 +74,8 @@ export function BacklinkTable({ data }: BacklinkTableProps) {
               </span>
             </TableCell>
             <TableCell>
-              <Badge
-                variant={
-                  backlink.link_type === "dofollow" ? "default" : "outline"
-                }
-              >
-                {backlink.link_type}
+              <Badge variant={backlink.is_nofollow ? "outline" : "default"}>
+                {backlink.is_nofollow ? "nofollow" : "dofollow"}
               </Badge>
             </TableCell>
             <TableCell>

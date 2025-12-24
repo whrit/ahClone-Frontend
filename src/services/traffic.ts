@@ -21,12 +21,12 @@ export interface TrafficImportCsvData {
   file: File
 }
 
-export class TrafficService {
+export namespace TrafficService {
   /**
    * Get Traffic Panel Data
    * Get multi-source traffic data for the specified period.
    */
-  public static getPanel(
+  export function getPanel(
     data: TrafficGetPanelData,
   ): CancelablePromise<TrafficPanelResponse> {
     return __request(OpenAPI, {
@@ -48,7 +48,7 @@ export class TrafficService {
    * Get Traffic Sources
    * Get available traffic data sources for the project.
    */
-  public static getSources(
+  export function getSources(
     data: TrafficGetSourcesData,
   ): CancelablePromise<TrafficSourcesResponse> {
     return __request(OpenAPI, {
@@ -67,7 +67,7 @@ export class TrafficService {
    * Import CSV Traffic Data
    * Import traffic data from a CSV file.
    */
-  public static importCsv(
+  export function importCsv(
     data: TrafficImportCsvData,
   ): CancelablePromise<CsvImportResponse> {
     const formData = new FormData()

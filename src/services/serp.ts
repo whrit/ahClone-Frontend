@@ -114,12 +114,12 @@ export interface GetLatestSnapshotData {
   keywordId: string
 }
 
-export class SerpService {
+export namespace SerpService {
   /**
    * List Keyword Targets
    * List all tracked keywords for a project.
    */
-  public static listKeywordTargets(
+  export function listKeywordTargets(
     data: ListKeywordTargetsData,
   ): CancelablePromise<KeywordTargetsPublic> {
     return __request(OpenAPI, {
@@ -142,7 +142,7 @@ export class SerpService {
    * Get Keyword Target
    * Get a single tracked keyword by ID.
    */
-  public static getKeywordTarget(
+  export function getKeywordTarget(
     data: GetKeywordTargetData,
   ): CancelablePromise<KeywordTarget> {
     return __request(OpenAPI, {
@@ -162,7 +162,7 @@ export class SerpService {
    * Create Keyword Target
    * Add a new keyword to track.
    */
-  public static createKeywordTarget(
+  export function createKeywordTarget(
     data: CreateKeywordTargetData,
   ): CancelablePromise<KeywordTarget> {
     return __request(OpenAPI, {
@@ -182,7 +182,7 @@ export class SerpService {
    * Refresh Keyword
    * Trigger a manual refresh of keyword position.
    */
-  public static refreshKeyword(
+  export function refreshKeyword(
     data: RefreshKeywordData,
   ): CancelablePromise<KeywordTarget> {
     return __request(OpenAPI, {
@@ -202,7 +202,7 @@ export class SerpService {
    * Get Rank History
    * Get historical rank observations for a keyword.
    */
-  public static getRankHistory(
+  export function getRankHistory(
     data: GetRankHistoryData,
   ): CancelablePromise<RankObservationsPublic> {
     return __request(OpenAPI, {
@@ -226,7 +226,7 @@ export class SerpService {
    * Get SERP Snapshots
    * Get SERP snapshots for a keyword.
    */
-  public static getSerpSnapshots(
+  export function getSerpSnapshots(
     data: GetSerpSnapshotsData,
   ): CancelablePromise<SerpSnapshotsPublic> {
     return __request(OpenAPI, {
@@ -250,7 +250,7 @@ export class SerpService {
    * Get Latest Snapshot
    * Get the most recent SERP snapshot for a keyword.
    */
-  public static getLatestSnapshot(
+  export function getLatestSnapshot(
     data: GetLatestSnapshotData,
   ): CancelablePromise<SerpSnapshot> {
     return __request(OpenAPI, {

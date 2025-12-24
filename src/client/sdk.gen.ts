@@ -3,7 +3,948 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse } from './types.gen';
+import type { AdsListAvailableAccountsData, AdsListAvailableAccountsResponse, AdsLinkAdsAccountData, AdsLinkAdsAccountResponse, AdsTriggerSyncData, AdsTriggerSyncResponse, AdsGetCampaignsData, AdsGetCampaignsResponse, AdsGetKeywordsData, AdsGetKeywordsResponse, AdsGetSeoOverlapData, AdsGetSeoOverlapResponse, AuditsStartAuditData, AuditsStartAuditResponse, AuditsListAuditsData, AuditsListAuditsResponse, AuditsGetAuditData, AuditsGetAuditResponse, AuditsGetAuditIssuesData, AuditsGetAuditIssuesResponse, AuditsGetAuditPagesData, AuditsGetAuditPagesResponse, AuditsGetPageDetailData, AuditsGetPageDetailResponse, AuditsExportIssuesCsvData, AuditsExportIssuesCsvResponse, GscListAvailablePropertiesData, GscListAvailablePropertiesResponse, GscLinkPropertyData, GscLinkPropertyResponse, GscUnlinkPropertyData, GscUnlinkPropertyResponse, GscTriggerSyncData, GscTriggerSyncResponse, GscTriggerBackfillData, GscTriggerBackfillResponse, GscGetQueriesData, GscGetQueriesResponse, GscGetPagesData, GscGetPagesResponse, GscGetOpportunitiesData, GscGetOpportunitiesResponse, GscGetClustersData, GscGetClustersResponse, GscGenerateClustersData, GscGenerateClustersResponse, GscGetClusterDetailData, GscGetClusterDetailResponse, IntegrationsStartGoogleOauthData, IntegrationsStartGoogleOauthResponse, IntegrationsGoogleOauthCallbackData, IntegrationsGoogleOauthCallbackResponse, IntegrationsGetGoogleIntegrationStatusResponse, IntegrationsDisconnectGoogleIntegrationData, IntegrationsDisconnectGoogleIntegrationResponse, ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, JobsGetJobStatusData, JobsGetJobStatusResponse, JobsListProjectJobsData, JobsListProjectJobsResponse, JobsCancelJobData, JobsCancelJobResponse, LinksGetRefdomainsData, LinksGetRefdomainsResponse, LinksGetBacklinksData, LinksGetBacklinksResponse, LinksGetAnchorsData, LinksGetAnchorsResponse, LinksGetOverlapData, LinksGetOverlapResponse, LinksGetIntersectData, LinksGetIntersectResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, ProjectsReadProjectsData, ProjectsReadProjectsResponse, ProjectsCreateProjectData, ProjectsCreateProjectResponse, ProjectsReadProjectData, ProjectsReadProjectResponse, ProjectsUpdateProjectData, ProjectsUpdateProjectResponse, ProjectsDeleteProjectData, ProjectsDeleteProjectResponse, SerpListProvidersData, SerpListProvidersResponse, SerpAddKeywordData, SerpAddKeywordResponse, SerpListKeywordsData, SerpListKeywordsResponse, SerpDeleteKeywordData, SerpDeleteKeywordResponse, SerpGetKeywordData, SerpGetKeywordResponse, SerpRefreshKeywordManualData, SerpRefreshKeywordManualResponse, SerpRefreshAllData, SerpRefreshAllResponse, SerpGetRankHistoryData, SerpGetRankHistoryResponse, SerpGetLatestSnapshotData, SerpGetLatestSnapshotResponse, SerpGetSerpSnapshotData, SerpGetSerpSnapshotResponse, SerpListKeywordSnapshotsData, SerpListKeywordSnapshotsResponse, TrafficGetTrafficPanelData, TrafficGetTrafficPanelResponse, TrafficImportCsvData, TrafficImportCsvResponse, TrafficGetAvailableSourcesData, TrafficGetAvailableSourcesResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse } from './types.gen';
+
+export class AdsService {
+    /**
+     * List Available Accounts
+     * List Google Ads accounts available to link.
+     *
+     * Returns accounts the user has access to via Google Ads API.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     *
+     * Returns:
+     * List of available accounts with customer_id, name, currency, timezone
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns unknown Successful Response
+     * @throws ApiError
+     */
+    public static listAvailableAccounts(data: AdsListAvailableAccountsData): CancelablePromise<AdsListAvailableAccountsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/ads/accounts',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Link Ads Account
+     * Link a Google Ads account to the project.
+     *
+     * Creates an AdsAccount record linking the project to a Google Ads customer.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * request: Link ads account request with customer_id
+     *
+     * Returns:
+     * Created AdsAccount instance
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.requestBody
+     * @returns AdsAccountPublic Successful Response
+     * @throws ApiError
+     */
+    public static linkAdsAccount(data: AdsLinkAdsAccountData): CancelablePromise<AdsLinkAdsAccountResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/ads/link',
+            path: {
+                project_id: data.projectId
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Trigger Sync
+     * Trigger manual Ads sync.
+     *
+     * Queues a Celery task to sync Google Ads data for the project.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     *
+     * Returns:
+     * Task response with task_id
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns TaskResponse Successful Response
+     * @throws ApiError
+     */
+    public static triggerSync(data: AdsTriggerSyncData): CancelablePromise<AdsTriggerSyncResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/ads/sync',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Campaigns
+     * Get campaign performance aggregated over period.
+     *
+     * Returns aggregated campaign performance data for the specified period.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * period_days: Number of days to aggregate (1-90, default 28)
+     *
+     * Returns:
+     * CampaignsResponse with aggregated campaign data
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.periodDays
+     * @returns CampaignsResponse Successful Response
+     * @throws ApiError
+     */
+    public static getCampaigns(data: AdsGetCampaignsData): CancelablePromise<AdsGetCampaignsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/ads/campaigns',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                period_days: data.periodDays
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Keywords
+     * Get keyword performance aggregated over period.
+     *
+     * Returns aggregated keyword performance data for the specified period.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * period_days: Number of days to aggregate (1-90, default 28)
+     * search: Optional search filter for keyword text
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return
+     *
+     * Returns:
+     * KeywordsResponse with aggregated keyword data
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.periodDays
+     * @param data.search
+     * @param data.skip
+     * @param data.limit
+     * @returns KeywordsResponse Successful Response
+     * @throws ApiError
+     */
+    public static getKeywords(data: AdsGetKeywordsData): CancelablePromise<AdsGetKeywordsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/ads/keywords',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                period_days: data.periodDays,
+                search: data.search,
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Seo Overlap
+     * Get SEO + PPC overlap analysis.
+     *
+     * Analyzes keyword overlap between organic (GSC) and paid (Ads) performance.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * period_days: Number of days to analyze (1-90, default 28)
+     * overlap_type: Filter by overlap type: "both", "paid_only", or "organic_only"
+     *
+     * Returns:
+     * OverlapResponse with keyword overlap data and summary statistics
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.periodDays
+     * @param data.overlapType
+     * @returns app__models__ads__OverlapResponse Successful Response
+     * @throws ApiError
+     */
+    public static getSeoOverlap(data: AdsGetSeoOverlapData): CancelablePromise<AdsGetSeoOverlapResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/ads/seo-overlap',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                period_days: data.periodDays,
+                overlap_type: data.overlapType
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class AuditsService {
+    /**
+     * Start Audit
+     * Create new audit run and queue it for execution.
+     *
+     * Creates a new AuditRun with a config snapshot from the project settings,
+     * then queues the run_audit Celery task.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns AuditRunPublic Successful Response
+     * @throws ApiError
+     */
+    public static startAudit(data: AuditsStartAuditData): CancelablePromise<AuditsStartAuditResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/audits/',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * List Audits
+     * List all audit runs for a project with pagination.
+     *
+     * Results are ordered by created_at descending (newest first).
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.skip
+     * @param data.limit
+     * @returns AuditRunsPublic Successful Response
+     * @throws ApiError
+     */
+    public static listAudits(data: AuditsListAuditsData): CancelablePromise<AuditsListAuditsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/audits/',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Audit
+     * Get a single audit run by ID.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.auditId
+     * @returns AuditRunPublic Successful Response
+     * @throws ApiError
+     */
+    public static getAudit(data: AuditsGetAuditData): CancelablePromise<AuditsGetAuditResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/audits/{audit_id}',
+            path: {
+                project_id: data.projectId,
+                audit_id: data.auditId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Audit Issues
+     * Get issues for an audit run with optional filters.
+     *
+     * Supports filtering by severity, issue_type, and is_new.
+     * Includes pagination with skip/limit.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.auditId
+     * @param data.skip
+     * @param data.limit
+     * @param data.severity
+     * @param data.issueType
+     * @param data.isNew
+     * @returns AuditIssuesPublic Successful Response
+     * @throws ApiError
+     */
+    public static getAuditIssues(data: AuditsGetAuditIssuesData): CancelablePromise<AuditsGetAuditIssuesResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/audits/{audit_id}/issues',
+            path: {
+                project_id: data.projectId,
+                audit_id: data.auditId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit,
+                severity: data.severity,
+                issue_type: data.issueType,
+                is_new: data.isNew
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Audit Pages
+     * Get crawled pages for an audit run with optional filters.
+     *
+     * Supports filtering by status_code and is_rendered.
+     * Includes pagination with skip/limit.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.auditId
+     * @param data.skip
+     * @param data.limit
+     * @param data.statusCode
+     * @param data.isRendered
+     * @returns CrawledPagesPublic Successful Response
+     * @throws ApiError
+     */
+    public static getAuditPages(data: AuditsGetAuditPagesData): CancelablePromise<AuditsGetAuditPagesResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/audits/{audit_id}/pages',
+            path: {
+                project_id: data.projectId,
+                audit_id: data.auditId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit,
+                status_code: data.statusCode,
+                is_rendered: data.isRendered
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Page Detail
+     * Get a single crawled page by ID.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.auditId
+     * @param data.pageId
+     * @returns CrawledPagePublic Successful Response
+     * @throws ApiError
+     */
+    public static getPageDetail(data: AuditsGetPageDetailData): CancelablePromise<AuditsGetPageDetailResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/audits/{audit_id}/pages/{page_id}',
+            path: {
+                project_id: data.projectId,
+                audit_id: data.auditId,
+                page_id: data.pageId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Export Issues Csv
+     * Export audit issues as CSV file.
+     *
+     * Supports the same filters as get_audit_issues endpoint.
+     * Returns a streaming CSV response.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.auditId
+     * @param data.severity
+     * @param data.issueType
+     * @param data.isNew
+     * @returns unknown Successful Response
+     * @throws ApiError
+     */
+    public static exportIssuesCsv(data: AuditsExportIssuesCsvData): CancelablePromise<AuditsExportIssuesCsvResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/audits/{audit_id}/export/issues.csv',
+            path: {
+                project_id: data.projectId,
+                audit_id: data.auditId
+            },
+            query: {
+                severity: data.severity,
+                issue_type: data.issueType,
+                is_new: data.isNew
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class GscService {
+    /**
+     * List Available Properties
+     * List GSC properties available to link from Google API.
+     *
+     * Returns properties the user has access to in Google Search Console.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     *
+     * Returns:
+     * List of available properties with siteUrl and permissionLevel
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns unknown Successful Response
+     * @throws ApiError
+     */
+    public static listAvailableProperties(data: GscListAvailablePropertiesData): CancelablePromise<GscListAvailablePropertiesResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/gsc/properties',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Link Property
+     * Link a GSC property to the project.
+     *
+     * Creates a GSCProperty record linking the project to a Google Search Console property.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * request: Link property request with site_url
+     *
+     * Returns:
+     * Created GSCProperty instance
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.requestBody
+     * @returns GSCPropertyPublic Successful Response
+     * @throws ApiError
+     */
+    public static linkProperty(data: GscLinkPropertyData): CancelablePromise<GscLinkPropertyResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/gsc/link',
+            path: {
+                project_id: data.projectId
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Unlink Property
+     * Unlink the GSC property from project.
+     *
+     * Removes the GSC property link. This will cascade delete all GSC data.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     *
+     * Returns:
+     * Success message
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static unlinkProperty(data: GscUnlinkPropertyData): CancelablePromise<GscUnlinkPropertyResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/v1/projects/{project_id}/gsc/unlink',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Trigger Sync
+     * Trigger manual GSC sync.
+     *
+     * Queues a Celery task to sync GSC data for the project.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     *
+     * Returns:
+     * Task response with task_id
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns TaskResponse Successful Response
+     * @throws ApiError
+     */
+    public static triggerSync(data: GscTriggerSyncData): CancelablePromise<GscTriggerSyncResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/gsc/sync',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Trigger Backfill
+     * Trigger GSC data backfill.
+     *
+     * Queues a Celery task to backfill historical GSC data.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * days: Number of days to backfill (1-365, default 90)
+     *
+     * Returns:
+     * Task response with task_id and days
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.days
+     * @returns BackfillTaskResponse Successful Response
+     * @throws ApiError
+     */
+    public static triggerBackfill(data: GscTriggerBackfillData): CancelablePromise<GscTriggerBackfillResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/gsc/backfill',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                days: data.days
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Queries
+     * Get query explorer data with aggregation.
+     *
+     * Returns aggregated query performance data for the specified period.
+     * Results are cached for 5 minutes to improve performance.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return
+     * search: Optional search filter for query text
+     * sort_by: Field to sort by (clicks, impressions, ctr, position)
+     * sort_order: Sort order (asc, desc)
+     * period_days: Number of days to aggregate (1-90)
+     *
+     * Returns:
+     * GSCQueriesResponse with aggregated query data
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.skip
+     * @param data.limit
+     * @param data.search
+     * @param data.sortBy
+     * @param data.sortOrder
+     * @param data.periodDays
+     * @returns GSCQueriesResponse Successful Response
+     * @throws ApiError
+     */
+    public static getQueries(data: GscGetQueriesData): CancelablePromise<GscGetQueriesResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/gsc/queries',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit,
+                search: data.search,
+                sort_by: data.sortBy,
+                sort_order: data.sortOrder,
+                period_days: data.periodDays
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Pages
+     * Get page explorer data.
+     *
+     * Returns aggregated page performance data for the specified period.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return
+     * search: Optional search filter for page URL
+     * sort_by: Field to sort by (clicks, impressions, ctr, position)
+     * sort_order: Sort order (asc, desc)
+     * period_days: Number of days to aggregate (1-90)
+     *
+     * Returns:
+     * GSCPagesResponse with aggregated page data
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.skip
+     * @param data.limit
+     * @param data.search
+     * @param data.sortBy
+     * @param data.sortOrder
+     * @param data.periodDays
+     * @returns GSCPagesResponse Successful Response
+     * @throws ApiError
+     */
+    public static getPages(data: GscGetPagesData): CancelablePromise<GscGetPagesResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/gsc/pages',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit,
+                search: data.search,
+                sort_by: data.sortBy,
+                sort_order: data.sortOrder,
+                period_days: data.periodDays
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Opportunities
+     * Get keyword opportunities.
+     *
+     * Analyzes GSC data to identify SEO opportunities like low CTR queries,
+     * position 8-20 queries, rising/falling keywords.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * opportunity_type: Optional filter by type (low_ctr, position_8_20, rising, falling)
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return
+     *
+     * Returns:
+     * OpportunitiesResponse with identified opportunities
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.opportunityType
+     * @param data.skip
+     * @param data.limit
+     * @returns OpportunitiesResponse Successful Response
+     * @throws ApiError
+     */
+    public static getOpportunities(data: GscGetOpportunitiesData): CancelablePromise<GscGetOpportunitiesResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/gsc/opportunities',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                opportunity_type: data.opportunityType,
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Clusters
+     * Get keyword clusters.
+     *
+     * Returns keyword clusters generated from query data.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return
+     *
+     * Returns:
+     * ClustersResponse with keyword clusters
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.skip
+     * @param data.limit
+     * @returns ClustersResponse Successful Response
+     * @throws ApiError
+     */
+    public static getClusters(data: GscGetClustersData): CancelablePromise<GscGetClustersResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/gsc/clusters',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Generate Clusters
+     * Regenerate keyword clusters.
+     *
+     * Queues a Celery task to generate keyword clusters from query data.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     *
+     * Returns:
+     * Task response with task_id
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns TaskResponse Successful Response
+     * @throws ApiError
+     */
+    public static generateClusters(data: GscGenerateClustersData): CancelablePromise<GscGenerateClustersResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/gsc/clusters/generate',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Cluster Detail
+     * Get cluster details with member queries.
+     *
+     * Returns a specific cluster with its member queries and their metrics.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * cluster_id: Cluster UUID
+     * period_days: Number of days to aggregate metrics (1-90)
+     *
+     * Returns:
+     * ClusterDetailPublic with cluster info and member queries with metrics
+     *
+     * Raises:
+     * HTTPException: If cluster not found or user lacks permissions
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.clusterId
+     * @param data.periodDays
+     * @returns ClusterDetailPublic Successful Response
+     * @throws ApiError
+     */
+    public static getClusterDetail(data: GscGetClusterDetailData): CancelablePromise<GscGetClusterDetailResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/gsc/clusters/{cluster_id}',
+            path: {
+                project_id: data.projectId,
+                cluster_id: data.clusterId
+            },
+            query: {
+                period_days: data.periodDays
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class IntegrationsService {
+    /**
+     * Start Google Oauth
+     * Start Google OAuth flow for GSC or Ads.
+     * Returns {authorization_url, state}
+     * @param data The data for the request.
+     * @param data.service
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static startGoogleOauth(data: IntegrationsStartGoogleOauthData): CancelablePromise<IntegrationsStartGoogleOauthResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/integrations/google/connect',
+            query: {
+                service: data.service
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Google Oauth Callback
+     * Handle Google OAuth callback.
+     * - Validate state
+     * - Exchange code for tokens
+     * - Get user info
+     * - Store/update IntegrationAccount
+     * - Redirect to frontend success page
+     * @param data The data for the request.
+     * @param data.code
+     * @param data.state
+     * @returns unknown Successful Response
+     * @throws ApiError
+     */
+    public static googleOauthCallback(data: IntegrationsGoogleOauthCallbackData): CancelablePromise<IntegrationsGoogleOauthCallbackResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/integrations/google/callback',
+            query: {
+                code: data.code,
+                state: data.state
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Google Integration Status
+     * Check Google integration status.
+     * Returns {gsc_connected, ads_connected, gsc_email, ads_email}
+     * @returns unknown Successful Response
+     * @throws ApiError
+     */
+    public static getGoogleIntegrationStatus(): CancelablePromise<IntegrationsGetGoogleIntegrationStatusResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/integrations/google/status'
+        });
+    }
+    
+    /**
+     * Disconnect Google Integration
+     * Disconnect a Google integration. Returns {message: "Disconnected"}
+     * @param data The data for the request.
+     * @param data.service
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static disconnectGoogleIntegration(data: IntegrationsDisconnectGoogleIntegrationData): CancelablePromise<IntegrationsDisconnectGoogleIntegrationResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/v1/integrations/google/{service}',
+            path: {
+                service: data.service
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
 
 export class ItemsService {
     /**
@@ -108,6 +1049,266 @@ export class ItemsService {
             url: '/api/v1/items/{id}',
             path: {
                 id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class JobsService {
+    /**
+     * Get Job Status
+     * Get job status by ID.
+     * @param data The data for the request.
+     * @param data.jobId
+     * @returns JobStatusResponse Successful Response
+     * @throws ApiError
+     */
+    public static getJobStatus(data: JobsGetJobStatusData): CancelablePromise<JobsGetJobStatusResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/jobs/{job_id}',
+            path: {
+                job_id: data.jobId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * List Project Jobs
+     * List recent jobs for a project.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.skip
+     * @param data.limit
+     * @returns JobsPublic Successful Response
+     * @throws ApiError
+     */
+    public static listProjectJobs(data: JobsListProjectJobsData): CancelablePromise<JobsListProjectJobsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/jobs/project/{project_id}',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Cancel Job
+     * Cancel a running job.
+     * @param data The data for the request.
+     * @param data.jobId
+     * @returns Message Successful Response
+     * @throws ApiError
+     */
+    public static cancelJob(data: JobsCancelJobData): CancelablePromise<JobsCancelJobResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/jobs/{job_id}/cancel',
+            path: {
+                job_id: data.jobId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class LinksService {
+    /**
+     * Get Refdomains
+     * Get referring domains for a target domain.
+     *
+     * Returns a list of domains that link to the target domain,
+     * along with backlink counts and dofollow/nofollow splits.
+     *
+     * Args:
+     * domain: Target domain to analyze
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return (pagination)
+     *
+     * Returns:
+     * RefDomainsResponse with referring domain data
+     * @param data The data for the request.
+     * @param data.domain
+     * @param data.skip
+     * @param data.limit
+     * @returns RefDomainsResponse Successful Response
+     * @throws ApiError
+     */
+    public static getRefdomains(data: LinksGetRefdomainsData): CancelablePromise<LinksGetRefdomainsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/links/domain/{domain}/refdomains',
+            path: {
+                domain: data.domain
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Backlinks
+     * Get backlinks for a target domain.
+     *
+     * Returns individual backlink records (source URL -> target URL pairs).
+     * Optionally filter by referring domain.
+     *
+     * Args:
+     * domain: Target domain to analyze
+     * ref_domain: Optional filter by referring domain
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return (pagination)
+     *
+     * Returns:
+     * BacklinksResponse with backlink data
+     * @param data The data for the request.
+     * @param data.domain
+     * @param data.refDomain
+     * @param data.skip
+     * @param data.limit
+     * @returns BacklinksResponse Successful Response
+     * @throws ApiError
+     */
+    public static getBacklinks(data: LinksGetBacklinksData): CancelablePromise<LinksGetBacklinksResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/links/domain/{domain}/backlinks',
+            path: {
+                domain: data.domain
+            },
+            query: {
+                ref_domain: data.refDomain,
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Anchors
+     * Get anchor text distribution for a target domain.
+     *
+     * Returns anchor texts used in backlinks along with
+     * backlink and referring domain counts.
+     *
+     * Args:
+     * domain: Target domain to analyze
+     * skip: Number of records to skip (pagination)
+     * limit: Maximum number of records to return (pagination)
+     *
+     * Returns:
+     * AnchorsResponse with anchor text data
+     * @param data The data for the request.
+     * @param data.domain
+     * @param data.skip
+     * @param data.limit
+     * @returns AnchorsResponse Successful Response
+     * @throws ApiError
+     */
+    public static getAnchors(data: LinksGetAnchorsData): CancelablePromise<LinksGetAnchorsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/links/domain/{domain}/anchors',
+            path: {
+                domain: data.domain
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Overlap
+     * Find domains that link to both target and competitors.
+     *
+     * This identifies shared referring domains, which can indicate
+     * industry-relevant sites or partnership opportunities.
+     *
+     * Args:
+     * domain: Target domain to analyze
+     * competitors: Comma-separated list of competitor domains
+     *
+     * Returns:
+     * OverlapResponse with shared referring domains
+     * @param data The data for the request.
+     * @param data.domain
+     * @param data.competitors Comma-separated list of competitor domains
+     * @returns app__models__links__OverlapResponse Successful Response
+     * @throws ApiError
+     */
+    public static getOverlap(data: LinksGetOverlapData): CancelablePromise<LinksGetOverlapResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/links/domain/{domain}/overlap',
+            path: {
+                domain: data.domain
+            },
+            query: {
+                competitors: data.competitors
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Intersect
+     * Find domains that link to competitors but NOT to target.
+     *
+     * These are link building opportunities - sites that already link
+     * to similar/competing content but haven't linked to the target yet.
+     *
+     * Args:
+     * domain: Target domain to analyze
+     * competitors: Comma-separated list of competitor domains
+     *
+     * Returns:
+     * IntersectResponse with link building opportunities
+     * @param data The data for the request.
+     * @param data.domain
+     * @param data.competitors Comma-separated list of competitor domains
+     * @returns IntersectResponse Successful Response
+     * @throws ApiError
+     */
+    public static getIntersect(data: LinksGetIntersectData): CancelablePromise<LinksGetIntersectResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/links/domain/{domain}/intersect',
+            path: {
+                domain: data.domain
+            },
+            query: {
+                competitors: data.competitors
             },
             errors: {
                 422: 'Validation Error'
@@ -228,6 +1429,533 @@ export class PrivateService {
             url: '/api/v1/private/users/',
             body: data.requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class ProjectsService {
+    /**
+     * Read Projects
+     * Retrieve projects.
+     * @param data The data for the request.
+     * @param data.skip
+     * @param data.limit
+     * @returns ProjectsPublic Successful Response
+     * @throws ApiError
+     */
+    public static readProjects(data: ProjectsReadProjectsData = {}): CancelablePromise<ProjectsReadProjectsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/',
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Create Project
+     * Create new project.
+     * @param data The data for the request.
+     * @param data.requestBody
+     * @returns ProjectPublic Successful Response
+     * @throws ApiError
+     */
+    public static createProject(data: ProjectsCreateProjectData): CancelablePromise<ProjectsCreateProjectResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/',
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Read Project
+     * Get project by ID.
+     * @param data The data for the request.
+     * @param data.id
+     * @returns ProjectPublic Successful Response
+     * @throws ApiError
+     */
+    public static readProject(data: ProjectsReadProjectData): CancelablePromise<ProjectsReadProjectResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{id}',
+            path: {
+                id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Update Project
+     * Update a project.
+     * @param data The data for the request.
+     * @param data.id
+     * @param data.requestBody
+     * @returns ProjectPublic Successful Response
+     * @throws ApiError
+     */
+    public static updateProject(data: ProjectsUpdateProjectData): CancelablePromise<ProjectsUpdateProjectResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/v1/projects/{id}',
+            path: {
+                id: data.id
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Delete Project
+     * Delete a project.
+     * @param data The data for the request.
+     * @param data.id
+     * @returns Message Successful Response
+     * @throws ApiError
+     */
+    public static deleteProject(data: ProjectsDeleteProjectData): CancelablePromise<ProjectsDeleteProjectResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/v1/projects/{id}',
+            path: {
+                id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class SerpService {
+    /**
+     * List Providers
+     * List available SERP providers.
+     *
+     * Returns list of provider information dictionaries with keys:
+     * - key: Provider key
+     * - name: Display name
+     * - is_compliant: Compliance status
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns unknown Successful Response
+     * @throws ApiError
+     */
+    public static listProviders(data: SerpListProvidersData): CancelablePromise<SerpListProvidersResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/serp/providers',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Add Keyword
+     * Add a keyword to track.
+     *
+     * Checks:
+     * - MAX_KEYWORDS_PER_PROJECT limit
+     * - Duplicate (same keyword+locale+device)
+     *
+     * Creates KeywordTarget and triggers refresh_keyword.delay()
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.requestBody
+     * @returns KeywordTargetPublic Successful Response
+     * @throws ApiError
+     */
+    public static addKeyword(data: SerpAddKeywordData): CancelablePromise<SerpAddKeywordResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/serp/keywords',
+            path: {
+                project_id: data.projectId
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * List Keywords
+     * List tracked keywords with pagination.
+     *
+     * Query parameters:
+     * - skip: Number of records to skip (default: 0)
+     * - limit: Max number of records to return (default: 100)
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.skip
+     * @param data.limit
+     * @returns KeywordTargetsPublic Successful Response
+     * @throws ApiError
+     */
+    public static listKeywords(data: SerpListKeywordsData): CancelablePromise<SerpListKeywordsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/serp/keywords',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Delete Keyword
+     * Delete a tracked keyword.
+     *
+     * Cascade deletes observations and snapshots.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.keywordId
+     * @returns Message Successful Response
+     * @throws ApiError
+     */
+    public static deleteKeyword(data: SerpDeleteKeywordData): CancelablePromise<SerpDeleteKeywordResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/v1/projects/{project_id}/serp/keywords/{keyword_id}',
+            path: {
+                project_id: data.projectId,
+                keyword_id: data.keywordId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Keyword
+     * Get single keyword details.
+     *
+     * Returns full KeywordTarget data including latest position and metadata.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.keywordId
+     * @returns KeywordTargetPublic Successful Response
+     * @throws ApiError
+     */
+    public static getKeyword(data: SerpGetKeywordData): CancelablePromise<SerpGetKeywordResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/serp/keywords/{keyword_id}',
+            path: {
+                project_id: data.projectId,
+                keyword_id: data.keywordId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Refresh Keyword Manual
+     * Trigger manual refresh for a keyword.
+     *
+     * Queues refresh_keyword.delay()
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.keywordId
+     * @returns Message Successful Response
+     * @throws ApiError
+     */
+    public static refreshKeywordManual(data: SerpRefreshKeywordManualData): CancelablePromise<SerpRefreshKeywordManualResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/serp/keywords/{keyword_id}/refresh',
+            path: {
+                project_id: data.projectId,
+                keyword_id: data.keywordId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Refresh All
+     * Trigger refresh for all project keywords.
+     *
+     * Queues refresh_project_keywords.delay()
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns Message Successful Response
+     * @throws ApiError
+     */
+    public static refreshAll(data: SerpRefreshAllData): CancelablePromise<SerpRefreshAllResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/serp/refresh-all',
+            path: {
+                project_id: data.projectId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Rank History
+     * Get rank history for a keyword.
+     *
+     * Query parameters:
+     * - days: Number of days of history (default: 30, max: 90)
+     *
+     * Returns:
+     * - RankHistoryResponse with trend data for charts
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.keywordId
+     * @param data.days
+     * @returns RankHistoryResponse Successful Response
+     * @throws ApiError
+     */
+    public static getRankHistory(data: SerpGetRankHistoryData): CancelablePromise<SerpGetRankHistoryResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/serp/keywords/{keyword_id}/history',
+            path: {
+                project_id: data.projectId,
+                keyword_id: data.keywordId
+            },
+            query: {
+                days: data.days
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Latest Snapshot
+     * Get latest snapshot for a keyword.
+     *
+     * Returns the most recent SERP snapshot ordered by captured_at.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.keywordId
+     * @returns SerpSnapshotPublic Successful Response
+     * @throws ApiError
+     */
+    public static getLatestSnapshot(data: SerpGetLatestSnapshotData): CancelablePromise<SerpGetLatestSnapshotResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/serp/keywords/{keyword_id}/snapshots/latest',
+            path: {
+                project_id: data.projectId,
+                keyword_id: data.keywordId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Serp Snapshot
+     * Get a SERP snapshot.
+     *
+     * Marks is_own_domain for results matching project.seed_url domain.
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.keywordId
+     * @param data.snapshotId
+     * @returns SerpSnapshotPublic Successful Response
+     * @throws ApiError
+     */
+    public static getSerpSnapshot(data: SerpGetSerpSnapshotData): CancelablePromise<SerpGetSerpSnapshotResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/serp/keywords/{keyword_id}/snapshots/{snapshot_id}',
+            path: {
+                project_id: data.projectId,
+                keyword_id: data.keywordId,
+                snapshot_id: data.snapshotId
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * List Keyword Snapshots
+     * List snapshots for a keyword with pagination.
+     *
+     * Query parameters:
+     * - skip: Number of records to skip (default: 0)
+     * - limit: Max number of records to return (default: 100)
+     *
+     * Returns snapshots ordered by captured_at descending (newest first).
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.keywordId
+     * @param data.skip
+     * @param data.limit
+     * @returns SerpSnapshotsPublic Successful Response
+     * @throws ApiError
+     */
+    public static listKeywordSnapshots(data: SerpListKeywordSnapshotsData): CancelablePromise<SerpListKeywordSnapshotsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/serp/keywords/{keyword_id}/snapshots',
+            path: {
+                project_id: data.projectId,
+                keyword_id: data.keywordId
+            },
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
+
+export class TrafficService {
+    /**
+     * Get Traffic Panel
+     * Get combined traffic panel data from multiple sources.
+     *
+     * Aggregates traffic data from:
+     * - GA4 (sessions, users, pageviews from TrafficDaily with source_key='ga4')
+     * - GSC (organic clicks from GSCQueryDaily)
+     * - CrUX (Core Web Vitals from TrafficDaily with source_key='crux')
+     * - CSV (custom uploaded data from TrafficDaily with source_key='csv')
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * period_days: Number of days to retrieve (1-90, default 28)
+     *
+     * Returns:
+     * TrafficPanelResponse with time series data
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.periodDays
+     * @returns TrafficPanelResponse Successful Response
+     * @throws ApiError
+     */
+    public static getTrafficPanel(data: TrafficGetTrafficPanelData): CancelablePromise<TrafficGetTrafficPanelResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/traffic/panel',
+            path: {
+                project_id: data.projectId
+            },
+            query: {
+                period_days: data.periodDays
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Import Csv
+     * Import traffic data from CSV.
+     *
+     * Creates TrafficDaily records with source_key='csv' from the provided CSV data.
+     * Invalid rows are skipped gracefully.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     * request: CSV import request with csv_data
+     *
+     * Returns:
+     * CSVImportResponse with count of imported records
+     * @param data The data for the request.
+     * @param data.projectId
+     * @param data.requestBody
+     * @returns CSVImportResponse Successful Response
+     * @throws ApiError
+     */
+    public static importCsv(data: TrafficImportCsvData): CancelablePromise<TrafficImportCsvResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/projects/{project_id}/traffic/import-csv',
+            path: {
+                project_id: data.projectId
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Get Available Sources
+     * Get list of available traffic sources for this project.
+     *
+     * Returns unique source keys from both TrafficDaily and GSC data.
+     *
+     * Args:
+     * session: Database session
+     * current_user: Current authenticated user
+     * project_id: Project UUID
+     *
+     * Returns:
+     * List of unique source keys (e.g., ['ga4', 'gsc', 'crux', 'csv'])
+     * @param data The data for the request.
+     * @param data.projectId
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static getAvailableSources(data: TrafficGetAvailableSourcesData): CancelablePromise<TrafficGetAvailableSourcesResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/projects/{project_id}/traffic/sources',
+            path: {
+                project_id: data.projectId
+            },
             errors: {
                 422: 'Validation Error'
             }
