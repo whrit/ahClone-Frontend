@@ -22,6 +22,10 @@ import { Route as LayoutProjectsIndexRouteImport } from './routes/_layout/projec
 import { Route as LayoutProjectsNewRouteImport } from './routes/_layout/projects/new'
 import { Route as LayoutProjectsProjectIdIndexRouteImport } from './routes/_layout/projects/$projectId/index'
 import { Route as LayoutProjectsProjectIdSettingsRouteImport } from './routes/_layout/projects/$projectId/settings'
+import { Route as LayoutProjectsProjectIdAuditsIndexRouteImport } from './routes/_layout/projects/$projectId/audits/index'
+import { Route as LayoutProjectsProjectIdAuditsAuditIdIndexRouteImport } from './routes/_layout/projects/$projectId/audits/$auditId/index'
+import { Route as LayoutProjectsProjectIdAuditsAuditIdPagesRouteImport } from './routes/_layout/projects/$projectId/audits/$auditId/pages'
+import { Route as LayoutProjectsProjectIdAuditsAuditIdIssuesRouteImport } from './routes/_layout/projects/$projectId/audits/$auditId/issues'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -89,6 +93,30 @@ const LayoutProjectsProjectIdSettingsRoute =
     path: '/projects/$projectId/settings',
     getParentRoute: () => LayoutRoute,
   } as any)
+const LayoutProjectsProjectIdAuditsIndexRoute =
+  LayoutProjectsProjectIdAuditsIndexRouteImport.update({
+    id: '/projects/$projectId/audits/',
+    path: '/projects/$projectId/audits/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdAuditsAuditIdIndexRoute =
+  LayoutProjectsProjectIdAuditsAuditIdIndexRouteImport.update({
+    id: '/projects/$projectId/audits/$auditId/',
+    path: '/projects/$projectId/audits/$auditId/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdAuditsAuditIdPagesRoute =
+  LayoutProjectsProjectIdAuditsAuditIdPagesRouteImport.update({
+    id: '/projects/$projectId/audits/$auditId/pages',
+    path: '/projects/$projectId/audits/$auditId/pages',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+const LayoutProjectsProjectIdAuditsAuditIdIssuesRoute =
+  LayoutProjectsProjectIdAuditsAuditIdIssuesRouteImport.update({
+    id: '/projects/$projectId/audits/$auditId/issues',
+    path: '/projects/$projectId/audits/$auditId/issues',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
@@ -103,6 +131,10 @@ export interface FileRoutesByFullPath {
   '/projects': typeof LayoutProjectsIndexRoute
   '/projects/$projectId/settings': typeof LayoutProjectsProjectIdSettingsRoute
   '/projects/$projectId': typeof LayoutProjectsProjectIdIndexRoute
+  '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
+  '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
+  '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
+  '/projects/$projectId/audits/$auditId': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
@@ -117,6 +149,10 @@ export interface FileRoutesByTo {
   '/projects': typeof LayoutProjectsIndexRoute
   '/projects/$projectId/settings': typeof LayoutProjectsProjectIdSettingsRoute
   '/projects/$projectId': typeof LayoutProjectsProjectIdIndexRoute
+  '/projects/$projectId/audits': typeof LayoutProjectsProjectIdAuditsIndexRoute
+  '/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
+  '/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
+  '/projects/$projectId/audits/$auditId': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -133,6 +169,10 @@ export interface FileRoutesById {
   '/_layout/projects/': typeof LayoutProjectsIndexRoute
   '/_layout/projects/$projectId/settings': typeof LayoutProjectsProjectIdSettingsRoute
   '/_layout/projects/$projectId/': typeof LayoutProjectsProjectIdIndexRoute
+  '/_layout/projects/$projectId/audits/': typeof LayoutProjectsProjectIdAuditsIndexRoute
+  '/_layout/projects/$projectId/audits/$auditId/issues': typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
+  '/_layout/projects/$projectId/audits/$auditId/pages': typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
+  '/_layout/projects/$projectId/audits/$auditId/': typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -149,6 +189,10 @@ export interface FileRouteTypes {
     | '/projects'
     | '/projects/$projectId/settings'
     | '/projects/$projectId'
+    | '/projects/$projectId/audits'
+    | '/projects/$projectId/audits/$auditId/issues'
+    | '/projects/$projectId/audits/$auditId/pages'
+    | '/projects/$projectId/audits/$auditId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
@@ -163,6 +207,10 @@ export interface FileRouteTypes {
     | '/projects'
     | '/projects/$projectId/settings'
     | '/projects/$projectId'
+    | '/projects/$projectId/audits'
+    | '/projects/$projectId/audits/$auditId/issues'
+    | '/projects/$projectId/audits/$auditId/pages'
+    | '/projects/$projectId/audits/$auditId'
   id:
     | '__root__'
     | '/_layout'
@@ -178,6 +226,10 @@ export interface FileRouteTypes {
     | '/_layout/projects/'
     | '/_layout/projects/$projectId/settings'
     | '/_layout/projects/$projectId/'
+    | '/_layout/projects/$projectId/audits/'
+    | '/_layout/projects/$projectId/audits/$auditId/issues'
+    | '/_layout/projects/$projectId/audits/$auditId/pages'
+    | '/_layout/projects/$projectId/audits/$auditId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -281,6 +333,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProjectsProjectIdSettingsRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/projects/$projectId/audits/': {
+      id: '/_layout/projects/$projectId/audits/'
+      path: '/projects/$projectId/audits'
+      fullPath: '/projects/$projectId/audits'
+      preLoaderRoute: typeof LayoutProjectsProjectIdAuditsIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/audits/$auditId/': {
+      id: '/_layout/projects/$projectId/audits/$auditId/'
+      path: '/projects/$projectId/audits/$auditId'
+      fullPath: '/projects/$projectId/audits/$auditId'
+      preLoaderRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/audits/$auditId/pages': {
+      id: '/_layout/projects/$projectId/audits/$auditId/pages'
+      path: '/projects/$projectId/audits/$auditId/pages'
+      fullPath: '/projects/$projectId/audits/$auditId/pages'
+      preLoaderRoute: typeof LayoutProjectsProjectIdAuditsAuditIdPagesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/$projectId/audits/$auditId/issues': {
+      id: '/_layout/projects/$projectId/audits/$auditId/issues'
+      path: '/projects/$projectId/audits/$auditId/issues'
+      fullPath: '/projects/$projectId/audits/$auditId/issues'
+      preLoaderRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
@@ -293,6 +373,10 @@ interface LayoutRouteChildren {
   LayoutProjectsIndexRoute: typeof LayoutProjectsIndexRoute
   LayoutProjectsProjectIdSettingsRoute: typeof LayoutProjectsProjectIdSettingsRoute
   LayoutProjectsProjectIdIndexRoute: typeof LayoutProjectsProjectIdIndexRoute
+  LayoutProjectsProjectIdAuditsIndexRoute: typeof LayoutProjectsProjectIdAuditsIndexRoute
+  LayoutProjectsProjectIdAuditsAuditIdIssuesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIssuesRoute
+  LayoutProjectsProjectIdAuditsAuditIdPagesRoute: typeof LayoutProjectsProjectIdAuditsAuditIdPagesRoute
+  LayoutProjectsProjectIdAuditsAuditIdIndexRoute: typeof LayoutProjectsProjectIdAuditsAuditIdIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
@@ -304,6 +388,14 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutProjectsIndexRoute: LayoutProjectsIndexRoute,
   LayoutProjectsProjectIdSettingsRoute: LayoutProjectsProjectIdSettingsRoute,
   LayoutProjectsProjectIdIndexRoute: LayoutProjectsProjectIdIndexRoute,
+  LayoutProjectsProjectIdAuditsIndexRoute:
+    LayoutProjectsProjectIdAuditsIndexRoute,
+  LayoutProjectsProjectIdAuditsAuditIdIssuesRoute:
+    LayoutProjectsProjectIdAuditsAuditIdIssuesRoute,
+  LayoutProjectsProjectIdAuditsAuditIdPagesRoute:
+    LayoutProjectsProjectIdAuditsAuditIdPagesRoute,
+  LayoutProjectsProjectIdAuditsAuditIdIndexRoute:
+    LayoutProjectsProjectIdAuditsAuditIdIndexRoute,
 }
 
 const LayoutRouteWithChildren =

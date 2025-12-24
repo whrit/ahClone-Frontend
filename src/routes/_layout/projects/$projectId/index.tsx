@@ -171,7 +171,7 @@ function ProjectOverview() {
           icon={<FileSearch className="h-5 w-5 text-primary" />}
           lastSync={project.last_audit_at}
           actionLabel="View Audits"
-          badge="Coming Soon"
+          actionHref={`/projects/${projectId}/audits`}
         />
 
         <ModuleCard
